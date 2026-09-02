@@ -1,0 +1,2455 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>แมวดำปริ้นด่วน | Online Printing</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --pink:#ff9fbe;
+    --pink2:#f86f9c;
+    --light:#fff1f6;
+    --light2:#ffe0eb;
+    --black:#151515;
+    --gray:#777;
+    --white:#fff;
+    --green:#39b96b;
+    --yellow:#ffc928;
+}
+
+body{
+    font-family:"Segoe UI","Noto Sans Thai",Arial,sans-serif;
+    background:#fff7fa;
+    color:#222;
+}
+
+button,input,select,textarea{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.page{
+    display:none;
+    min-height:100vh;
+}
+
+.page.active{
+    display:block;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    height:70px;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+    border-bottom:1px solid #f3c5d5;
+    position:sticky;
+    top:0;
+    z-index:999;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.cat-logo{
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    background:#151515;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:27px;
+    box-shadow:0 5px 15px #0002;
+}
+
+.logo-name{
+    font-weight:900;
+    font-size:19px;
+}
+
+.logo-name span{
+    color:var(--pink2);
+}
+
+.logo-small{
+    color:#999;
+    font-size:10px;
+}
+
+.nav{
+    display:flex;
+    gap:25px;
+}
+
+.nav a{
+    text-decoration:none;
+    color:#444;
+    font-size:14px;
+    font-weight:bold;
+}
+
+/* =========================
+   HOME
+========================= */
+
+.hero{
+    min-height:650px;
+    position:relative;
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    padding:50px 20px;
+
+    background:
+        radial-gradient(circle at 10% 20%,#ffd3e1,transparent 25%),
+        radial-gradient(circle at 90% 80%,#ffd9e7,transparent 30%),
+        linear-gradient(135deg,#fff7fa,#ffe5ee);
+}
+
+.hero-content{
+    max-width:750px;
+    z-index:2;
+}
+
+.big-cat{
+    width:125px;
+    height:125px;
+    background:#151515;
+    border-radius:50%;
+    margin:auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:73px;
+    box-shadow:0 15px 35px #0003;
+    animation:float 3s infinite ease-in-out;
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-10px);
+    }
+}
+
+.tag{
+    display:inline-block;
+    margin-top:22px;
+    padding:7px 17px;
+    border-radius:30px;
+    background:#fff;
+    color:var(--pink2);
+    font-size:12px;
+    font-weight:bold;
+}
+
+.hero h1{
+    margin-top:15px;
+    font-size:52px;
+    font-weight:900;
+}
+
+.hero h1 span{
+    color:var(--pink2);
+}
+
+.hero p{
+    color:#777;
+    margin-top:10px;
+    font-size:17px;
+}
+
+.main-btn{
+    border:none;
+    background:linear-gradient(135deg,var(--pink),var(--pink2));
+    color:white;
+    padding:15px 32px;
+    border-radius:15px;
+    margin-top:25px;
+    font-size:17px;
+    font-weight:900;
+    box-shadow:0 8px 20px #f86f9c55;
+    transition:.2s;
+}
+
+.main-btn:hover{
+    transform:translateY(-3px);
+}
+
+.cat-deco{
+    position:absolute;
+    font-size:65px;
+    opacity:.8;
+}
+
+.cat-left{
+    left:6%;
+    bottom:8%;
+}
+
+.cat-right{
+    right:6%;
+    top:15%;
+}
+
+.paw{
+    position:absolute;
+    font-size:40px;
+    opacity:.15;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+    padding:60px 6%;
+}
+
+.title{
+    text-align:center;
+    font-size:30px;
+    font-weight:900;
+}
+
+.subtitle{
+    text-align:center;
+    color:#888;
+    margin:5px 0 35px;
+}
+
+.services{
+    max-width:1100px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.service{
+    background:#fff;
+    border:1px solid #f3c5d5;
+    border-radius:18px;
+    padding:25px 12px;
+    text-align:center;
+    transition:.2s;
+}
+
+.service:hover{
+    transform:translateY(-5px);
+    border-color:var(--pink);
+}
+
+.service-icon{
+    font-size:38px;
+}
+
+.service h3{
+    font-size:16px;
+    margin-top:8px;
+}
+
+.service p{
+    font-size:12px;
+    color:#999;
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+.about{
+    background:#fff0f5;
+}
+
+.about-box{
+    max-width:900px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    align-items:center;
+}
+
+.about-cat{
+    width:220px;
+    height:220px;
+    background:#151515;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:120px;
+    margin:auto;
+}
+
+.about-text h2{
+    font-size:28px;
+}
+
+.about-text h2 span{
+    color:var(--pink2);
+}
+
+.about-text p{
+    color:#666;
+    font-size:15px;
+    margin-top:10px;
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact{
+    background:#fff;
+}
+
+.contacts{
+    max-width:900px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.contact-card{
+    background:#fff7fa;
+    border:1px solid #f3c5d5;
+    border-radius:15px;
+    padding:20px 8px;
+    text-align:center;
+}
+
+.contact-card .icon{
+    font-size:28px;
+}
+
+.contact-card h3{
+    font-size:13px;
+}
+
+.contact-card p{
+    font-size:11px;
+    color:#777;
+    word-break:break-word;
+}
+
+.contact-card a{
+    color:#777;
+    text-decoration:none;
+}
+
+.contact-card a:hover{
+    color:var(--pink2);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+    background:#151515;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+
+.footer p{
+    color:#aaa;
+    font-size:12px;
+}
+
+/* =========================
+   ORDER PAGE
+========================= */
+
+.order-header{
+    height:68px;
+    background:#fff;
+    border-bottom:1px solid #f3c5d5;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 5%;
+
+    position:sticky;
+    top:0;
+    z-index:99;
+}
+
+.back-btn{
+    border:none;
+    background:#fff0f5;
+    color:var(--pink2);
+    padding:9px 14px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.order-logo{
+    font-weight:900;
+}
+
+.order-logo span{
+    color:var(--pink2);
+}
+
+.container{
+    width:94%;
+    max-width:1200px;
+    margin:25px auto;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+}
+
+.card{
+    background:#fff;
+    border:1px solid #f3c5d5;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:18px;
+    box-shadow:0 5px 20px #f86f9c10;
+}
+
+.card h2{
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+.card h2 span{
+    color:var(--pink2);
+}
+
+/* UPLOAD */
+
+.upload{
+    border:2px dashed var(--pink);
+    border-radius:15px;
+    padding:30px 15px;
+    text-align:center;
+    background:#fff9fb;
+    cursor:pointer;
+}
+
+.upload:hover{
+    background:#fff0f5;
+}
+
+.upload-icon{
+    font-size:50px;
+}
+
+.upload h3{
+    margin-top:5px;
+}
+
+.upload p{
+    color:#999;
+    font-size:12px;
+}
+
+#fileInput{
+    display:none;
+}
+
+.file-list{
+    margin-top:10px;
+}
+
+.file{
+    background:#fff0f5;
+    border:1px solid #f3c5d5;
+    border-radius:10px;
+    padding:10px;
+    margin-top:7px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    font-size:13px;
+}
+
+.remove{
+    color:#e44;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* OPTIONS */
+
+.options{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.options.three{
+    grid-template-columns:repeat(3,1fr);
+}
+
+.option{
+    border:1px solid #ddd;
+    border-radius:13px;
+    padding:15px;
+    cursor:pointer;
+}
+
+.option:hover{
+    border-color:var(--pink);
+}
+
+.option.selected{
+    border:2px solid var(--pink2);
+    background:#fff0f5;
+}
+
+.option input{
+    display:none;
+}
+
+.option-icon{
+    font-size:28px;
+}
+
+.option-title{
+    font-weight:bold;
+}
+
+.option-desc{
+    font-size:11px;
+    color:#999;
+}
+
+/* INPUT */
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    font-size:14px;
+    margin-bottom:6px;
+}
+
+.input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    outline:none;
+}
+
+.input:focus{
+    border-color:var(--pink2);
+}
+
+textarea.input{
+    min-height:80px;
+}
+
+/* SUMMARY */
+
+.summary{
+    position:sticky;
+    top:85px;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    border-bottom:1px dashed #e9ced8;
+    padding:9px 0;
+    font-size:13px;
+}
+
+.total{
+    display:flex;
+    justify-content:space-between;
+    margin-top:15px;
+    font-size:23px;
+    color:var(--pink2);
+    font-weight:900;
+}
+
+.confirm{
+    width:100%;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,var(--pink),var(--pink2));
+    color:white;
+    padding:14px;
+    margin-top:15px;
+    font-size:16px;
+    font-weight:900;
+}
+
+/* PAYMENT */
+
+.payment{
+    margin-top:15px;
+    padding:15px;
+    background:#fff6fa;
+    border-radius:12px;
+    text-align:center;
+}
+
+.fake-qr{
+    width:150px;
+    height:150px;
+    margin:15px auto;
+    background:
+        repeating-linear-gradient(
+            45deg,
+            #111 0,
+            #111 4px,
+            white 4px,
+            white 8px
+        );
+    border:8px solid white;
+}
+
+/* TRACK */
+
+.status{
+    display:flex;
+    gap:12px;
+    padding-bottom:20px;
+    position:relative;
+}
+
+.status:not(:last-child)::after{
+    content:"";
+    position:absolute;
+    left:14px;
+    top:30px;
+    height:42px;
+    border-left:2px dashed #ddd;
+}
+
+.status-icon{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:#ddd;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    z-index:2;
+    flex-shrink:0;
+}
+
+.status.done .status-icon{
+    background:var(--green);
+    color:white;
+}
+
+.status.current .status-icon{
+    background:var(--yellow);
+}
+
+.status strong{
+    font-size:14px;
+}
+
+.status small{
+    display:block;
+    color:#999;
+    font-size:11px;
+}
+
+/* ORDER NUMBER */
+
+.order-number{
+    background:#fff0f5;
+    border-radius:12px;
+    padding:15px;
+    text-align:center;
+}
+
+.order-number strong{
+    display:block;
+    color:var(--pink2);
+    font-size:25px;
+}
+
+/* REVIEW */
+
+.review{
+    text-align:center;
+}
+
+.stars{
+    display:flex;
+    justify-content:center;
+    gap:5px;
+    margin:15px;
+}
+
+.star{
+    font-size:35px;
+    color:#ddd;
+    cursor:pointer;
+}
+
+.star.active{
+    color:var(--yellow);
+}
+
+.review-btn{
+    border:none;
+    background:var(--pink2);
+    color:white;
+    padding:10px 25px;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+.review-result{
+    display:none;
+    background:#fff0f5;
+    padding:10px;
+    margin-top:10px;
+    border-radius:10px;
+}
+
+.review-result.show{
+    display:block;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:900px){
+
+    .services{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .contacts{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .summary{
+        position:static;
+    }
+
+    .about-box{
+        grid-template-columns:1fr;
+        text-align:center;
+    }
+}
+
+@media(max-width:600px){
+
+    .header{
+        padding:0 15px;
+    }
+
+    .nav{
+        display:none;
+    }
+
+    .logo-name{
+        font-size:16px;
+    }
+
+    .logo-small{
+        display:none;
+    }
+
+    .hero{
+        min-height:580px;
+    }
+
+    .big-cat{
+        width:100px;
+        height:100px;
+        font-size:58px;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .hero p{
+        font-size:14px;
+    }
+
+    .section{
+        padding:45px 15px;
+    }
+
+    .services{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .service{
+        padding:18px 7px;
+    }
+
+    .service h3{
+        font-size:13px;
+    }
+
+    .service p{
+        font-size:10px;
+    }
+
+    .contacts{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .about-cat{
+        width:170px;
+        height:170px;
+        font-size:90px;
+    }
+
+    .options,
+    .options.three{
+        grid-template-columns:1fr;
+    }
+
+    .container{
+        width:94%;
+    }
+
+    .card{
+        padding:15px;
+    }
+
+    .cat-deco{
+        font-size:40px;
+    }
+}
+
+@media(max-width:380px){
+
+    .services{
+        grid-template-columns:1fr;
+    }
+
+    .contacts{
+        grid-template-columns:1fr;
+    }
+
+    .hero h1{
+        font-size:29px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ======================================================
+     PAGE 1
+====================================================== -->
+
+<div id="homePage" class="page active">
+
+<header class="header">
+
+    <div class="logo">
+
+        <div class="cat-logo">
+            🐈‍⬛
+        </div>
+
+        <div>
+            <div class="logo-name">
+                แมวดำ<span>ปริ้นด่วน</span>
+            </div>
+
+            <div class="logo-small">
+                ปริ้นง่าย ส่งไว ได้งานชัวร์
+            </div>
+        </div>
+
+    </div>
+
+    <nav class="nav">
+        <a href="#services">บริการ</a>
+        <a href="#about">เกี่ยวกับร้าน</a>
+        <a href="#contact">ติดต่อเรา</a>
+    </nav>
+
+</header>
+
+
+<section class="hero">
+
+    <span class="paw" style="left:10%;top:20%">🐾</span>
+    <span class="paw" style="right:12%;top:30%">🐾</span>
+    <span class="paw" style="left:20%;bottom:15%">🐾</span>
+    <span class="paw" style="right:20%;bottom:10%">🐾</span>
+
+    <div class="hero-content">
+
+        <div class="big-cat">
+            🐈‍⬛
+        </div>
+
+        <div class="tag">
+            🐾 ONLINE PRINTING SERVICE
+        </div>
+
+        <h1>
+            แมวดำ<span>ปริ้นด่วน</span>
+        </h1>
+
+        <p>
+            รับปริ้นงานออนไลน์
+            <br>
+            ส่งไฟล์ง่าย สั่งสะดวก รวดเร็ว 💗
+        </p>
+
+        <button
+            class="main-btn"
+            onclick="openOrder()">
+
+            🖨️ เข้าสู่ระบบสั่งปริ้น
+
+        </button>
+
+    </div>
+
+    <div class="cat-deco cat-left">
+        🐈‍⬛
+    </div>
+
+    <div class="cat-deco cat-right">
+        🐈‍⬛
+    </div>
+
+</section>
+
+
+<section class="section" id="services">
+
+    <h2 class="title">
+        🐾 บริการของเรา
+    </h2>
+
+    <p class="subtitle">
+        สั่งปริ้นออนไลน์ได้ง่าย ๆ
+    </p>
+
+    <div class="services">
+
+        <div class="service">
+            <div class="service-icon">📄</div>
+            <h3>อัปโหลดไฟล์</h3>
+            <p>PDF / Word / PowerPoint</p>
+        </div>
+
+        <div class="service">
+            <div class="service-icon">🖨️</div>
+            <h3>เลือกสี</h3>
+            <p>สี / ขาวดำ</p>
+        </div>
+
+        <div class="service">
+            <div class="service-icon">📑</div>
+            <h3>A4 / A3</h3>
+            <p>เลือกขนาดกระดาษ</p>
+        </div>
+
+        <div class="service">
+            <div class="service-icon">📖</div>
+            <h3>หน้าเดียว / สองหน้า</h3>
+            <p>เลือกวิธีพิมพ์</p>
+        </div>
+
+        <div class="service">
+            <div class="service-icon">📎</div>
+            <h3>เข้าเล่ม</h3>
+            <p>เย็บมุม / เข้าเล่ม</p>
+        </div>
+
+        <div class="service">
+            <div class="service-icon">💰</div>
+            <h3>คำนวณราคา</h3>
+            <p>รู้ราคาก่อนสั่ง</p>
+        </div>
+
+        <div class="service">
+            <div class="service-icon">🚚</div>
+            <h3>จัดส่ง</h3>
+            <p>รับที่ร้าน / จัดส่ง</p>
+        </div>
+
+        <div class="service">
+            <div class="service-icon">⭐</div>
+            <h3>รีวิว</h3>
+            <p>ให้คะแนนบริการ</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section about" id="about">
+
+    <div class="about-box">
+
+        <div class="about-cat">
+            🐈‍⬛
+        </div>
+
+        <div class="about-text">
+
+            <h2>
+                ทำไมต้อง
+                <span>แมวดำปริ้นด่วน?</span>
+            </h2>
+
+            <p>
+                บริการรับปริ้นงานออนไลน์
+                ที่ช่วยให้ลูกค้าสั่งงานได้จากมือถือ
+                ไม่ต้องเสียเวลาเดินทางมาร้าน
+            </p>
+
+            <p>
+                เพียงอัปโหลดไฟล์
+                เลือกรูปแบบการพิมพ์
+                ระบบจะคำนวณราคาให้อัตโนมัติ
+                แล้วเลือกรับงานหรือจัดส่งได้เลย
+            </p>
+
+            <button
+                class="main-btn"
+                onclick="openOrder()">
+
+                🐾 เริ่มสั่งงาน
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section contact" id="contact">
+
+    <h2 class="title">
+        📞 ติดต่อเรา
+    </h2>
+
+    <p class="subtitle">
+        แมวดำพร้อมให้บริการค่ะ 🐈‍⬛
+    </p>
+
+    <div class="contacts">
+
+        <div class="contact-card">
+            <div class="icon">📘</div>
+            <h3>Facebook</h3>
+            <p>Nadthida Padoohuemg</p>
+        </div>
+
+        <div class="contact-card">
+            <div class="icon">💬</div>
+            <h3>LINE ID</h3>
+            <p>nadthidadream</p>
+        </div>
+
+        <div class="contact-card">
+            <div class="icon">📱</div>
+            <h3>โทรศัพท์</h3>
+            <p>
+                <a href="tel:0654851530">
+                    0654851530
+                </a>
+            </p>
+        </div>
+
+        <div class="contact-card">
+            <div class="icon">📧</div>
+            <h3>Gmail</h3>
+            <p>
+                <a href="mailto:natthida14518@gmail.com">
+                    natthida14518@gmail.com
+                </a>
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer class="footer">
+
+    <div style="font-size:35px">
+        🐈‍⬛
+    </div>
+
+    <p>
+        © 2026 แมวดำปริ้นด่วน
+    </p>
+
+    <p>
+        ปริ้นง่าย ส่งไว ได้งานชัวร์ 💗
+    </p>
+
+</footer>
+
+</div>
+
+
+<!-- ======================================================
+     PAGE 2
+====================================================== -->
+
+<div id="orderPage" class="page">
+
+<header class="order-header">
+
+    <button
+        class="back-btn"
+        onclick="openHome()">
+
+        ← หน้าหลัก
+
+    </button>
+
+    <div class="order-logo">
+        🐈‍⬛ แมวดำ<span>ปริ้นด่วน</span>
+    </div>
+
+    <div>🐾</div>
+
+</header>
+
+
+<div class="container">
+
+<div class="grid">
+
+<div>
+
+
+<!-- 1 FILE -->
+
+<div class="card">
+
+    <h2>
+        📄 <span>1.</span>
+        อัปโหลดไฟล์
+    </h2>
+
+    <label
+        class="upload"
+        for="fileInput">
+
+        <div class="upload-icon">
+            📄
+        </div>
+
+        <h3>
+            คลิกเพื่อเลือกไฟล์
+        </h3>
+
+        <p>
+            PDF / Word / PowerPoint
+        </p>
+
+        <p>
+            .pdf .doc .docx .ppt .pptx
+        </p>
+
+    </label>
+
+    <input
+        id="fileInput"
+        type="file"
+        multiple
+        accept=".pdf,.doc,.docx,.ppt,.pptx">
+
+    <div
+        id="fileList"
+        class="file-list">
+    </div>
+
+</div>
+
+
+<!-- 2 COLOR -->
+
+<div class="card">
+
+    <h2>
+        🖨️ <span>2.</span>
+        สีการพิมพ์
+    </h2>
+
+    <div class="options">
+
+        <label
+            class="option selected"
+            onclick="selectOption(this,'color')">
+
+            <input
+                type="radio"
+                name="color"
+                value="bw"
+                checked
+                onchange="calculate()">
+
+            <div class="option-icon">⚫</div>
+
+            <div class="option-title">
+                ขาวดำ
+            </div>
+
+            <div class="option-desc">
+                A4 2 บาท/หน้า
+            </div>
+
+        </label>
+
+        <label
+            class="option"
+            onclick="selectOption(this,'color')">
+
+            <input
+                type="radio"
+                name="color"
+                value="color"
+                onchange="calculate()">
+
+            <div class="option-icon">🌈</div>
+
+            <div class="option-title">
+                สี
+            </div>
+
+            <div class="option-desc">
+                A4 5 บาท/หน้า
+            </div>
+
+        </label>
+
+    </div>
+
+</div>
+
+
+<!-- 3 PAPER -->
+
+<div class="card">
+
+    <h2>
+        📑 <span>3.</span>
+        ขนาดกระดาษ
+    </h2>
+
+    <div class="options">
+
+        <label
+            class="option selected"
+            onclick="selectOption(this,'paper')">
+
+            <input
+                type="radio"
+                name="paper"
+                value="A4"
+                checked
+                onchange="calculate()">
+
+            <div class="option-icon">📄</div>
+
+            <div class="option-title">A4</div>
+
+            <div class="option-desc">
+                ขนาดมาตรฐาน
+            </div>
+
+        </label>
+
+        <label
+            class="option"
+            onclick="selectOption(this,'paper')">
+
+            <input
+                type="radio"
+                name="paper"
+                value="A3"
+                onchange="calculate()">
+
+            <div class="option-icon">📑</div>
+
+            <div class="option-title">A3</div>
+
+            <div class="option-desc">
+                ขนาดใหญ่
+            </div>
+
+        </label>
+
+    </div>
+
+</div>
+
+
+<!-- 4 SIDE -->
+
+<div class="card">
+
+    <h2>
+        📖 <span>4.</span>
+        รูปแบบการพิมพ์
+    </h2>
+
+    <div class="options">
+
+        <label
+            class="option selected"
+            onclick="selectOption(this,'side')">
+
+            <input
+                type="radio"
+                name="side"
+                value="single"
+                checked
+                onchange="calculate()">
+
+            <div class="option-icon">📃</div>
+
+            <div class="option-title">
+                หน้าเดียว
+            </div>
+
+            <div class="option-desc">
+                พิมพ์ด้านเดียว
+            </div>
+
+        </label>
+
+        <label
+            class="option"
+            onclick="selectOption(this,'side')">
+
+            <input
+                type="radio"
+                name="side"
+                value="double"
+                onchange="calculate()">
+
+            <div class="option-icon">📖</div>
+
+            <div class="option-title">
+                สองหน้า
+            </div>
+
+            <div class="option-desc">
+                ประหยัดกระดาษ
+            </div>
+
+        </label>
+
+    </div>
+
+</div>
+
+
+<!-- 5 BINDING -->
+
+<div class="card">
+
+    <h2>
+        📎 <span>5.</span>
+        การเข้าเล่ม
+    </h2>
+
+    <div class="options three">
+
+        <label
+            class="option selected"
+            onclick="selectOption(this,'binding')">
+
+            <input
+                type="radio"
+                name="binding"
+                value="none"
+                checked
+                onchange="calculate()">
+
+            <div class="option-icon">❌</div>
+
+            <div class="option-title">
+                ไม่เข้าเล่ม
+            </div>
+
+            <div class="option-desc">
+                ฟรี
+            </div>
+
+        </label>
+
+        <label
+            class="option"
+            onclick="selectOption(this,'binding')">
+
+            <input
+                type="radio"
+                name="binding"
+                value="staple"
+                onchange="calculate()">
+
+            <div class="option-icon">📎</div>
+
+            <div class="option-title">
+                เย็บมุม
+            </div>
+
+            <div class="option-desc">
+                +5 บาท
+            </div>
+
+        </label>
+
+        <label
+            class="option"
+            onclick="selectOption(this,'binding')">
+
+            <input
+                type="radio"
+                name="binding"
+                value="book"
+                onchange="calculate()">
+
+            <div class="option-icon">📚</div>
+
+            <div class="option-title">
+                เข้าเล่ม
+            </div>
+
+            <div class="option-desc">
+                +30 บาท
+            </div>
+
+        </label>
+
+    </div>
+
+</div>
+
+
+<!-- 6 PAGES -->
+
+<div class="card">
+
+    <h2>
+        🔢 <span>6.</span>
+        จำนวนหน้า
+    </h2>
+
+    <div class="form-group">
+
+        <label>
+            จำนวนหน้าที่ต้องการปริ้น
+        </label>
+
+        <input
+            id="pages"
+            class="input"
+            type="number"
+            min="1"
+            value="10"
+            oninput="calculate()">
+
+    </div>
+
+</div>
+
+
+<!-- 7 DELIVERY -->
+
+<div class="card">
+
+    <h2>
+        🚚 <span>7.</span>
+        วิธีรับงาน
+    </h2>
+
+    <div class="options">
+
+        <label
+            class="option selected"
+            onclick="selectOption(this,'delivery')">
+
+            <input
+                type="radio"
+                name="delivery"
+                value="store"
+                checked
+                onchange="calculate()">
+
+            <div class="option-icon">🏪</div>
+
+            <div class="option-title">
+                รับที่ร้าน
+            </div>
+
+            <div class="option-desc">
+                ฟรี
+            </div>
+
+        </label>
+
+        <label
+            class="option"
+            onclick="selectOption(this,'delivery')">
+
+            <input
+                type="radio"
+                name="delivery"
+                value="delivery"
+                onchange="calculate()">
+
+            <div class="option-icon">🛵</div>
+
+            <div class="option-title">
+                จัดส่ง
+            </div>
+
+            <div class="option-desc">
+                +30 บาท
+            </div>
+
+        </label>
+
+    </div>
+
+    <div class="form-group" style="margin-top:15px">
+
+        <label>
+            📍 ที่อยู่จัดส่ง
+        </label>
+
+        <textarea
+            id="address"
+            class="input"
+            placeholder="กรอกที่อยู่สำหรับจัดส่ง"></textarea>
+
+    </div>
+
+</div>
+
+
+<!-- CUSTOMER -->
+
+<div class="card">
+
+    <h2>
+        👤 ข้อมูลลูกค้า
+    </h2>
+
+    <div class="form-group">
+
+        <label>
+            ชื่อ-นามสกุล
+        </label>
+
+        <input
+            id="customerName"
+            class="input"
+            placeholder="กรอกชื่อ-นามสกุล">
+
+    </div>
+
+    <div class="form-group">
+
+        <label>
+            เบอร์โทรศัพท์
+        </label>
+
+        <input
+            id="phone"
+            class="input"
+            placeholder="กรอกเบอร์โทรศัพท์">
+
+    </div>
+
+</div>
+
+
+<!-- PAYMENT -->
+
+<div class="card">
+
+    <h2>
+        💳 ชำระเงินออนไลน์
+    </h2>
+
+    <select
+        id="payment"
+        class="input"
+        onchange="paymentChange()">
+
+        <option value="qr">
+            📱 QR พร้อมเพย์
+        </option>
+
+        <option value="bank">
+            🏦 โอนผ่านธนาคาร
+        </option>
+
+        <option value="card">
+            💳 บัตรเครดิต / เดบิต
+        </option>
+
+        <option value="wallet">
+            💰 E-Wallet
+        </option>
+
+    </select>
+
+    <div
+        id="paymentBox"
+        class="payment">
+
+        <p>
+            📱 สแกน QR เพื่อชำระเงิน
+        </p>
+
+        <div class="fake-qr"></div>
+
+        <strong>
+            แมวดำปริ้นด่วน
+        </strong>
+
+        <p>
+            PromptPay
+        </p>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- ==================================================
+     RIGHT
+================================================== -->
+
+<div>
+
+
+<!-- SUMMARY -->
+
+<div class="card summary">
+
+    <h2>
+        💰 สรุปคำสั่งซื้อ
+    </h2>
+
+    <div class="summary-row">
+        <span>ค่าปริ้น</span>
+        <b id="printPrice">20.00 บาท</b>
+    </div>
+
+    <div class="summary-row">
+        <span>กระดาษ</span>
+        <b id="paperText">A4</b>
+    </div>
+
+    <div class="summary-row">
+        <span>รูปแบบ</span>
+        <b id="sideText">หน้าเดียว</b>
+    </div>
+
+    <div class="summary-row">
+        <span>จำนวน</span>
+        <b id="pageText">10 หน้า</b>
+    </div>
+
+    <div class="summary-row">
+        <span>เข้าเล่ม</span>
+        <b id="bindingPrice">0.00 บาท</b>
+    </div>
+
+    <div class="summary-row">
+        <span>จัดส่ง</span>
+        <b id="deliveryPrice">0.00 บาท</b>
+    </div>
+
+    <div class="total">
+        <span>รวม</span>
+        <span id="total">20.00 บาท</span>
+    </div>
+
+    <button
+        class="confirm"
+        onclick="confirmOrder()">
+
+        🛒 ยืนยันคำสั่งซื้อ
+
+    </button>
+
+</div>
+
+
+<!-- ORDER -->
+
+<div class="card">
+
+    <h2>
+        🧾 เลขคำสั่งซื้อ
+    </h2>
+
+    <div class="order-number">
+
+        <small>
+            หมายเลขออเดอร์
+        </small>
+
+        <strong id="orderNumber">
+            MDP000000
+        </strong>
+
+        <small>
+            ใช้สำหรับติดตามสถานะ
+        </small>
+
+    </div>
+
+</div>
+
+
+<!-- TRACKING -->
+
+<div class="card">
+
+    <h2>
+        📦 ติดตามสถานะงาน
+    </h2>
+
+    <div class="status done">
+
+        <div class="status-icon">✓</div>
+
+        <div>
+            <strong>รับคำสั่งซื้อแล้ว</strong>
+            <small>ระบบได้รับคำสั่งซื้อ</small>
+        </div>
+
+    </div>
+
+    <div class="status current">
+
+        <div class="status-icon">🔍</div>
+
+        <div>
+            <strong>กำลังตรวจสอบไฟล์</strong>
+            <small>ร้านกำลังตรวจสอบไฟล์</small>
+        </div>
+
+    </div>
+
+    <div class="status">
+
+        <div class="status-icon">🖨️</div>
+
+        <div>
+            <strong>กำลังปริ้นงาน</strong>
+            <small>รอดำเนินการ</small>
+        </div>
+
+    </div>
+
+    <div class="status">
+
+        <div class="status-icon">📎</div>
+
+        <div>
+            <strong>กำลังเข้าเล่ม</strong>
+            <small>รอดำเนินการ</small>
+        </div>
+
+    </div>
+
+    <div class="status">
+
+        <div class="status-icon">📦</div>
+
+        <div>
+            <strong>พร้อมรับงาน</strong>
+            <small>รอดำเนินการ</small>
+        </div>
+
+    </div>
+
+    <div class="status">
+
+        <div class="status-icon">🛵</div>
+
+        <div>
+            <strong>จัดส่งสำเร็จ</strong>
+            <small>รอดำเนินการ</small>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- REVIEW -->
+
+<div class="card review">
+
+    <h2>
+        ⭐ ให้คะแนนร้าน
+    </h2>
+
+    <p>
+        คุณพอใจกับบริการแค่ไหน?
+    </p>
+
+    <div class="stars">
+
+        <span class="star" onclick="rate(1)">★</span>
+        <span class="star" onclick="rate(2)">★</span>
+        <span class="star" onclick="rate(3)">★</span>
+        <span class="star" onclick="rate(4)">★</span>
+        <span class="star" onclick="rate(5)">★</span>
+
+    </div>
+
+    <p id="ratingText">
+        ยังไม่ได้ให้คะแนน
+    </p>
+
+    <textarea
+        id="reviewText"
+        class="input"
+        placeholder="เขียนรีวิวของคุณ..."></textarea>
+
+    <button
+        class="review-btn"
+        onclick="submitReview()">
+
+        ⭐ ส่งรีวิว
+
+    </button>
+
+    <div
+        id="reviewResult"
+        class="review-result">
+    </div>
+
+</div>
+
+
+<div
+    class="card"
+    style="text-align:center">
+
+    <div style="font-size:60px">
+        🐈‍⬛
+    </div>
+
+    <b>
+        เหมียว! ขอบคุณที่ใช้บริการ 💗
+    </b>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<footer class="footer">
+
+    🐈‍⬛
+
+    <p>
+        © 2026 แมวดำปริ้นด่วน
+    </p>
+
+</footer>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+function openOrder(){
+
+    document
+        .getElementById("homePage")
+        .classList.remove("active");
+
+    document
+        .getElementById("orderPage")
+        .classList.add("active");
+
+    window.scrollTo(0,0);
+}
+
+
+function openHome(){
+
+    document
+        .getElementById("orderPage")
+        .classList.remove("active");
+
+    document
+        .getElementById("homePage")
+        .classList.add("active");
+
+    window.scrollTo(0,0);
+}
+
+
+/* =====================================================
+   FILE UPLOAD
+===================================================== */
+
+let files=[];
+
+document
+.getElementById("fileInput")
+.addEventListener("change",function(){
+
+    files=files.concat(
+        Array.from(this.files)
+    );
+
+    showFiles();
+
+});
+
+
+function showFiles(){
+
+    const box=
+        document.getElementById("fileList");
+
+    box.innerHTML="";
+
+    files.forEach(function(file,index){
+
+        box.innerHTML+=`
+
+            <div class="file">
+
+                <span>
+                    📄 ${file.name}
+                </span>
+
+                <span
+                    class="remove"
+                    onclick="removeFile(${index})">
+
+                    ✕
+
+                </span>
+
+            </div>
+
+        `;
+
+    });
+}
+
+
+function removeFile(index){
+
+    files.splice(index,1);
+
+    showFiles();
+}
+
+
+/* =====================================================
+   SELECT
+===================================================== */
+
+function selectOption(element,group){
+
+    document
+    .querySelectorAll(
+        `input[name="${group}"]`
+    )
+    .forEach(function(input){
+
+        input
+        .closest(".option")
+        .classList
+        .remove("selected");
+
+    });
+
+    element.classList.add("selected");
+
+    element.querySelector("input").checked=true;
+
+    calculate();
+}
+
+
+/* =====================================================
+   PRICE
+===================================================== */
+
+function calculate(){
+
+    const pages=
+        Number(
+            document.getElementById("pages").value
+        ) || 1;
+
+    const color=
+        document.querySelector(
+            'input[name="color"]:checked'
+        ).value;
+
+    const paper=
+        document.querySelector(
+            'input[name="paper"]:checked'
+        ).value;
+
+    const side=
+        document.querySelector(
+            'input[name="side"]:checked'
+        ).value;
+
+    const binding=
+        document.querySelector(
+            'input[name="binding"]:checked'
+        ).value;
+
+    const delivery=
+        document.querySelector(
+            'input[name="delivery"]:checked'
+        ).value;
+
+
+    /* ราคาปริ้น */
+
+    let price=2;
+
+    if(color==="color"){
+
+        price=5;
+
+    }
+
+    if(paper==="A3"){
+
+        price*=2;
+
+    }
+
+    /* สองหน้าลด 10% */
+
+    if(side==="double"){
+
+        price*=0.9;
+
+    }
+
+
+    const printTotal=
+        pages*price;
+
+
+    /* เข้าเล่ม */
+
+    let bindingTotal=0;
+
+    if(binding==="staple"){
+        bindingTotal=5;
+    }
+
+    if(binding==="book"){
+        bindingTotal=30;
+    }
+
+
+    /* ส่ง */
+
+    let deliveryTotal=0;
+
+    if(delivery==="delivery"){
+        deliveryTotal=30;
+    }
+
+
+    const total=
+        printTotal+
+        bindingTotal+
+        deliveryTotal;
+
+
+    document.getElementById("printPrice")
+        .innerText=
+        printTotal.toFixed(2)+" บาท";
+
+    document.getElementById("paperText")
+        .innerText=paper;
+
+    document.getElementById("sideText")
+        .innerText=
+        side==="single"
+        ?"หน้าเดียว"
+        :"สองหน้า";
+
+    document.getElementById("pageText")
+        .innerText=
+        pages+" หน้า";
+
+    document.getElementById("bindingPrice")
+        .innerText=
+        bindingTotal.toFixed(2)+" บาท";
+
+    document.getElementById("deliveryPrice")
+        .innerText=
+        deliveryTotal.toFixed(2)+" บาท";
+
+    document.getElementById("total")
+        .innerText=
+        total.toFixed(2)+" บาท";
+}
+
+
+/* =====================================================
+   PAYMENT
+===================================================== */
+
+function paymentChange(){
+
+    const value=
+        document.getElementById("payment").value;
+
+    const box=
+        document.getElementById("paymentBox");
+
+
+    if(value==="qr"){
+
+        box.innerHTML=`
+
+            <p>📱 สแกน QR เพื่อชำระเงิน</p>
+
+            <div class="fake-qr"></div>
+
+            <b>แมวดำปริ้นด่วน</b>
+
+            <p>PromptPay</p>
+
+        `;
+
+    }
+
+    else if(value==="bank"){
+
+        box.innerHTML=`
+
+            <h3>🏦 โอนผ่านธนาคาร</h3>
+
+            <p>
+                ธนาคาร: กสิกรไทย
+            </p>
+
+            <p>
+                ชื่อบัญชี: แมวดำปริ้นด่วน
+            </p>
+
+            <p>
+                เลขบัญชี: XXX-X-XXXXX-X
+            </p>
+
+        `;
+
+    }
+
+    else if(value==="card"){
+
+        box.innerHTML=`
+
+            <h3>💳 บัตรเครดิต / เดบิต</h3>
+
+            <p>
+                รองรับ Visa / Mastercard
+            </p>
+
+        `;
+
+    }
+
+    else{
+
+        box.innerHTML=`
+
+            <h3>💰 E-Wallet</h3>
+
+            <p>
+                เลือก E-Wallet ที่ต้องการ
+            </p>
+
+        `;
+
+    }
+}
+
+
+/* =====================================================
+   ORDER
+===================================================== */
+
+function confirmOrder(){
+
+    if(files.length===0){
+
+        alert(
+            "🐈‍⬛ กรุณาอัปโหลดไฟล์ก่อนค่ะ"
+        );
+
+        return;
+    }
+
+
+    const name=
+        document
+        .getElementById("customerName")
+        .value.trim();
+
+
+    const phone=
+        document
+        .getElementById("phone")
+        .value.trim();
+
+
+    if(name===""){
+
+        alert("กรุณากรอกชื่อ-นามสกุล");
+
+        return;
+    }
+
+
+    if(phone===""){
+
+        alert("กรุณากรอกเบอร์โทรศัพท์");
+
+        return;
+    }
+
+
+    const order=
+        "MDP"+
+        Date.now().toString().slice(-6);
+
+
+    document
+    .getElementById("orderNumber")
+    .innerText=order;
+
+
+    /* บันทึกออเดอร์ในเครื่อง */
+
+    const data={
+
+        order:order,
+
+        customer:name,
+
+        phone:phone,
+
+        files:files.map(
+            file=>file.name
+        ),
+
+        total:
+            document
+            .getElementById("total")
+            .innerText,
+
+        date:new Date()
+            .toLocaleString("th-TH")
+
+    };
+
+
+    localStorage.setItem(
+        "maewdamOrder",
+        JSON.stringify(data)
+    );
+
+
+    alert(
+        "🐈‍⬛ สั่งปริ้นสำเร็จแล้วค่ะ!\n\n"+
+        "เลขคำสั่งซื้อ: "+order+
+        "\n\n"+
+        "สามารถใช้เลขนี้ติดตามงานได้ค่ะ 💗"
+    );
+
+}
+
+
+/* =====================================================
+   REVIEW
+===================================================== */
+
+let rating=0;
+
+
+function rate(number){
+
+    rating=number;
+
+
+    document
+    .querySelectorAll(".star")
+    .forEach(function(star,index){
+
+        if(index<number){
+
+            star.classList.add("active");
+
+        }else{
+
+            star.classList.remove("active");
+
+        }
+
+    });
+
+
+    const text=[
+
+        "",
+        "😿 ควรปรับปรุง",
+        "😕 พอใช้",
+        "🙂 ปานกลาง",
+        "😸 ดีมาก",
+        "😻 ประทับใจมาก!"
+
+    ];
+
+    document
+    .getElementById("ratingText")
+    .innerText=text[number];
+
+}
+
+
+function submitReview(){
+
+    if(rating===0){
+
+        alert("⭐ กรุณาเลือกคะแนนก่อนค่ะ");
+
+        return;
+    }
+
+
+    const review=
+        document
+        .getElementById("reviewText")
+        .value.trim();
+
+
+    const result=
+        document
+        .getElementById("reviewResult");
+
+
+    result.classList.add("show");
+
+
+    result.innerHTML=`
+
+        <b>
+            ขอบคุณสำหรับรีวิวค่ะ 🐈‍⬛💗
+        </b>
+
+        <br>
+
+        <span style="color:#ffc928;font-size:22px">
+            ${"★".repeat(rating)}
+            ${"☆".repeat(5-rating)}
+        </span>
+
+        <br>
+
+        ${review || "ขอบคุณที่ใช้บริการค่ะ"}
+
+    `;
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+calculate();
+
+</script>
+
+</body>
+</html>
