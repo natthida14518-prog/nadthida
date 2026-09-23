@@ -1,18 +1,21 @@
+ไฟล์ .html แล้วเปิดใน Chrome ได้เลย
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>แมวดำปริ้นด่วน | Online Printing</title>
 
 <!-- Leaflet Map -->
-<link
- rel="stylesheet"
- href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/>
+<link rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
@@ -23,17 +26,16 @@
 }
 
 :root{
-    --blue:#a9dff5;
-    --blue2:#75c7e8;
-    --blue3:#4aaed5;
-    --dark:#18242b;
-    --black:#101820;
-    --white:#ffffff;
-    --bg:#eefaff;
-    --green:#69c98b;
-    --yellow:#ffd66b;
-    --pink:#ff9fbe;
-    --shadow:0 10px 30px rgba(48,120,150,.15);
+    --blue:#9fdef5;
+    --blue2:#54b7dc;
+    --blue3:#168bb6;
+    --dark:#17252c;
+    --bg:#effaff;
+    --white:#fff;
+    --green:#56c989;
+    --yellow:#ffd75f;
+    --red:#ff718d;
+    --shadow:0 10px 30px rgba(48,120,150,.13);
 }
 
 body{
@@ -44,8 +46,9 @@ body{
 
 button,
 input,
-select{
-    font-family:inherit;
+select,
+textarea{
+    font:inherit;
 }
 
 button{
@@ -57,11 +60,11 @@ button{
 ========================= */
 
 .app{
-    max-width:480px;
+    max-width:520px;
     min-height:100vh;
     margin:auto;
     background:#f7fdff;
-    box-shadow:0 0 30px rgba(0,0,0,.08);
+    box-shadow:0 0 35px #0001;
     position:relative;
     overflow:hidden;
 }
@@ -69,7 +72,7 @@ button{
 .screen{
     display:none;
     min-height:100vh;
-    padding-bottom:80px;
+    padding-bottom:86px;
 }
 
 .screen.active{
@@ -81,21 +84,19 @@ button{
 ========================= */
 
 .header{
-    background:linear-gradient(135deg,#bdeeff,#83d0ed);
+    background:linear-gradient(135deg,#c8f1ff,#78c9e9);
     padding:22px 20px;
     position:relative;
     overflow:hidden;
 }
 
-.header:before{
-    content:"";
+.header:after{
+    content:"🐈‍⬛";
     position:absolute;
-    width:160px;
-    height:160px;
-    border-radius:50%;
-    background:rgba(255,255,255,.2);
-    right:-60px;
-    top:-50px;
+    right:15px;
+    bottom:-17px;
+    font-size:90px;
+    opacity:.15;
 }
 
 .brand{
@@ -109,34 +110,12 @@ button{
 .cat-logo{
     width:55px;
     height:55px;
+    border-radius:50%;
     background:#111;
-    border-radius:50% 50% 45% 45%;
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display:grid;
+    place-items:center;
     font-size:29px;
-    box-shadow:0 5px 15px rgba(0,0,0,.2);
-}
-
-.cat-logo:before,
-.cat-logo:after{
-    content:"";
-    position:absolute;
-    width:17px;
-    height:17px;
-    background:#111;
-    top:-6px;
-    transform:rotate(45deg);
-    z-index:-1;
-}
-
-.cat-logo:before{
-    left:5px;
-}
-
-.cat-logo:after{
-    right:5px;
+    box-shadow:0 5px 15px #0003;
 }
 
 .brand h1{
@@ -145,19 +124,19 @@ button{
 
 .brand p{
     font-size:12px;
+    opacity:.75;
     margin-top:3px;
-    opacity:.8;
 }
 
 /* =========================
-   HOME
+   HERO
 ========================= */
 
 .hero{
     margin:18px;
     border-radius:25px;
     padding:25px 20px;
-    background:linear-gradient(135deg,#e4f8ff,#b7e8f8);
+    background:linear-gradient(135deg,#e8faff,#b6e7f7);
     box-shadow:var(--shadow);
     position:relative;
     overflow:hidden;
@@ -173,38 +152,34 @@ button{
     font-size:14px;
     line-height:1.7;
     color:#49616c;
+    max-width:75%;
 }
 
-.hero-cat{
-    position:absolute;
-    right:10px;
-    bottom:-10px;
-    font-size:90px;
-    filter:drop-shadow(0 7px 8px rgba(0,0,0,.15));
-}
-
-.main-btn{
+.main-btn,
+.confirm-btn{
     border:0;
-    background:var(--black);
-    color:white;
+    background:var(--dark);
+    color:#fff;
     border-radius:14px;
     padding:14px 20px;
     font-weight:bold;
-    margin-top:18px;
-    font-size:15px;
-    position:relative;
-    z-index:2;
+    margin-top:15px;
+    font-size:14px;
+    transition:.2s;
 }
 
-.main-btn:hover{
+.main-btn:hover,
+.confirm-btn:hover{
     transform:translateY(-2px);
+    box-shadow:0 8px 18px #0002;
 }
 
 /* =========================
-   FEATURES
+   SECTIONS
 ========================= */
 
-.section{
+.section,
+.order-container{
     padding:0 18px;
     margin-top:20px;
 }
@@ -220,17 +195,26 @@ button{
     font-size:18px;
 }
 
+/* =========================
+   FEATURES
+========================= */
+
 .features{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:10px;
 }
 
-.feature{
-    background:white;
-    border-radius:17px;
-    padding:16px 12px;
+.feature,
+.card{
+    background:#fff;
+    border-radius:18px;
+    padding:17px;
     box-shadow:var(--shadow);
+    margin-bottom:14px;
+}
+
+.feature{
     text-align:center;
 }
 
@@ -243,20 +227,20 @@ button{
     font-size:13px;
 }
 
-.feature p{
+.feature p,
+.muted{
     font-size:11px;
     color:#71858e;
     margin-top:4px;
 }
 
 /* =========================
-   MEMBER CARD
+   MEMBER
 ========================= */
 
 .member-card{
-    margin-top:18px;
-    background:linear-gradient(135deg,#17252c,#2e4853);
-    color:white;
+    background:linear-gradient(135deg,#17252c,#34525e);
+    color:#fff;
     border-radius:20px;
     padding:20px;
     position:relative;
@@ -269,7 +253,7 @@ button{
     right:15px;
     bottom:-15px;
     font-size:80px;
-    opacity:.2;
+    opacity:.18;
 }
 
 .member-top{
@@ -284,8 +268,18 @@ button{
     font-weight:bold;
 }
 
-.member-card small{
-    color:#c5d9df;
+.progress{
+    height:9px;
+    background:#e8f0f2;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress > div{
+    height:100%;
+    background:var(--blue3);
+    border-radius:20px;
+    transition:.4s;
 }
 
 /* =========================
@@ -300,7 +294,7 @@ button{
 }
 
 .promo strong{
-    color:#9a7210;
+    color:#8f6a08;
 }
 
 .promo p{
@@ -309,11 +303,11 @@ button{
 }
 
 /* =========================
-   REVIEWS
+   REVIEW
 ========================= */
 
 .review{
-    background:white;
+    background:#fff;
     padding:15px;
     border-radius:17px;
     margin-bottom:10px;
@@ -337,22 +331,23 @@ button{
 }
 
 /* =========================
-   ORDER
+   TOP BAR
 ========================= */
 
 .topbar{
-    background:white;
-    padding:16px 18px;
+    background:#fff;
+    padding:14px 18px;
     display:flex;
     align-items:center;
     gap:12px;
-    box-shadow:0 3px 15px rgba(0,0,0,.05);
+    box-shadow:0 3px 15px #0000000d;
     position:sticky;
     top:0;
     z-index:20;
 }
 
-.back{
+.back,
+.icon-btn{
     border:0;
     background:#e6f7fd;
     width:40px;
@@ -365,22 +360,9 @@ button{
     font-size:18px;
 }
 
-.order-container{
-    padding:18px;
-}
-
-.card{
-    background:white;
-    padding:17px;
-    border-radius:18px;
-    margin-bottom:14px;
-    box-shadow:var(--shadow);
-}
-
-.card h3{
-    font-size:16px;
-    margin-bottom:13px;
-}
+/* =========================
+   UPLOAD
+========================= */
 
 .upload{
     border:2px dashed #8fd4ec;
@@ -402,7 +384,7 @@ button{
     display:inline-block;
     margin-top:10px;
     background:var(--blue3);
-    color:white;
+    color:#fff;
     padding:10px 17px;
     border-radius:12px;
     font-size:13px;
@@ -422,16 +404,21 @@ button{
 .option-grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:10px;
+    gap:9px;
 }
 
 .option{
     border:1.5px solid #d5e8ee;
     border-radius:13px;
-    padding:13px 8px;
+    padding:12px 8px;
     text-align:center;
-    background:white;
+    background:#fff;
     font-size:13px;
+    transition:.2s;
+}
+
+.option:hover{
+    transform:translateY(-1px);
 }
 
 .option.selected{
@@ -441,8 +428,30 @@ button{
     font-weight:bold;
 }
 
-.option input{
-    display:none;
+/* =========================
+   FORM
+========================= */
+
+.form-group{
+    margin-bottom:12px;
+}
+
+.form-group label{
+    display:block;
+    font-size:12px;
+    margin-bottom:6px;
+    color:#526871;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    border:1px solid #d5e7ed;
+    padding:12px;
+    border-radius:11px;
+    outline:0;
+    background:#fff;
 }
 
 /* =========================
@@ -463,7 +472,7 @@ button{
 }
 
 .total{
-    border-top:1px solid rgba(0,0,0,.1);
+    border-top:1px solid #0002;
     padding-top:12px;
     margin-top:10px;
     font-size:21px;
@@ -498,14 +507,24 @@ button{
     font-size:12px;
 }
 
+.address-result{
+    font-size:11px;
+    color:#4b8da4;
+    background:#eefaff;
+    border-radius:10px;
+    padding:9px;
+    margin-top:8px;
+    display:none;
+}
+
 /* =========================
-   STATUS
+   TRACKING
 ========================= */
 
 .status-list{
     display:flex;
     justify-content:space-between;
-    margin-top:15px;
+    margin-top:18px;
 }
 
 .status{
@@ -520,19 +539,20 @@ button{
     margin:auto;
     border-radius:50%;
     background:#dbeaf0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display:grid;
+    place-items:center;
+    position:relative;
+    z-index:2;
 }
 
 .status.active .status-circle{
     background:var(--blue3);
-    color:white;
+    color:#fff;
 }
 
 .status span{
     display:block;
-    font-size:10px;
+    font-size:9px;
     margin-top:5px;
 }
 
@@ -547,9 +567,8 @@ button{
     z-index:0;
 }
 
-.status-circle{
-    position:relative;
-    z-index:2;
+.status.done:not(:last-child):after{
+    background:var(--blue3);
 }
 
 /* =========================
@@ -561,13 +580,13 @@ button{
     bottom:0;
     left:50%;
     transform:translateX(-50%);
-    max-width:480px;
+    max-width:520px;
     width:100%;
-    background:white;
+    background:#fff;
     display:grid;
     grid-template-columns:repeat(4,1fr);
     padding:9px 5px;
-    box-shadow:0 -5px 20px rgba(0,0,0,.08);
+    box-shadow:0 -5px 20px #00000014;
     z-index:100;
 }
 
@@ -595,7 +614,7 @@ button{
 .modal{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.5);
+    background:#0008;
     display:none;
     align-items:flex-end;
     justify-content:center;
@@ -607,12 +626,12 @@ button{
 }
 
 .modal-box{
-    background:white;
+    background:#fff;
     width:100%;
-    max-width:480px;
+    max-width:520px;
     padding:22px;
     border-radius:25px 25px 0 0;
-    max-height:90vh;
+    max-height:92vh;
     overflow:auto;
 }
 
@@ -626,102 +645,131 @@ button{
 }
 
 /* =========================
-   FORMS
-========================= */
-
-.form-group{
-    margin-bottom:13px;
-}
-
-.form-group label{
-    display:block;
-    font-size:12px;
-    margin-bottom:6px;
-    color:#526871;
-}
-
-.form-group input,
-.form-group select{
-    width:100%;
-    border:1px solid #d5e7ed;
-    padding:12px;
-    border-radius:11px;
-    outline:none;
-}
-
-.confirm-btn{
-    width:100%;
-    background:var(--black);
-    color:white;
-    border:0;
-    border-radius:14px;
-    padding:15px;
-    font-size:15px;
-    font-weight:bold;
-    margin-top:10px;
-}
-
-/* =========================
    ADMIN
 ========================= */
 
-.admin-card{
-    border-left:5px solid var(--blue3);
+.admin-head{
+    background:linear-gradient(135deg,#17252c,#2d4a55);
+    color:#fff;
+    padding:20px;
 }
 
-.admin-status{
-    padding:9px;
+.admin-head h2{
+    font-size:20px;
+}
+
+.admin-nav{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:7px;
+    padding:12px 18px;
+    background:#fff;
+}
+
+.admin-tab{
+    border:0;
+    background:#edf8fb;
     border-radius:10px;
-    background:#eefaff;
-    margin:8px 0;
-    font-size:12px;
+    padding:9px;
+    font-size:11px;
 }
 
-.admin-buttons{
+.admin-tab.active{
+    background:var(--blue3);
+    color:#fff;
+}
+
+.stat-grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:6px;
+    gap:10px;
 }
 
-.admin-buttons button{
+.stat{
+    background:#fff;
+    border-radius:17px;
+    padding:15px;
+    box-shadow:var(--shadow);
+}
+
+.stat .n{
+    font-size:23px;
+    font-weight:bold;
+    margin-top:4px;
+}
+
+.order-row{
+    border:1px solid #e2edf0;
+    border-radius:14px;
+    padding:13px;
+    margin-bottom:10px;
+}
+
+.order-row-top{
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+}
+
+.badge{
+    padding:5px 8px;
+    border-radius:20px;
+    font-size:10px;
+    background:#e8f8fd;
+    color:#1684ad;
+    white-space:nowrap;
+}
+
+.admin-actions{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:7px;
+    margin-top:10px;
+}
+
+.admin-actions button{
     border:0;
-    padding:9px;
     border-radius:9px;
+    padding:9px;
     font-size:11px;
-    background:#dff5fc;
+    background:#e2f6fc;
+}
+
+.chart-box{
+    height:260px;
 }
 
 /* =========================
-   CONTACT
+   LOGIN
 ========================= */
 
-.contact-item{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:12px 0;
-    border-bottom:1px solid #edf2f4;
+.login-logo{
+    text-align:center;
+    font-size:65px;
 }
 
-.contact-icon{
-    width:40px;
-    height:40px;
-    background:#e6f8fd;
-    border-radius:12px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+.pin{
+    font-size:25px;
+    text-align:center;
+    letter-spacing:8px;
 }
 
-.contact-item small{
-    display:block;
-    color:#78909a;
-    margin-bottom:3px;
+/* =========================
+   NOTIFICATION
+========================= */
+
+.notification{
+    border-left:4px solid var(--blue3);
+    background:#f1fbfe;
+    padding:11px;
+    border-radius:10px;
+    margin-bottom:8px;
+    font-size:12px;
 }
 
-.contact-item strong{
-    font-size:13px;
-    word-break:break-word;
+.notification.new{
+    border-left-color:var(--green);
+    background:#effff5;
 }
 
 /* =========================
@@ -732,18 +780,59 @@ button{
     position:fixed;
     top:20px;
     left:50%;
-    transform:translateX(-50%) translateY(-100px);
+    transform:translateX(-50%) translateY(-120px);
     background:#17252c;
-    color:white;
+    color:#fff;
     padding:12px 18px;
     border-radius:12px;
     z-index:1000;
     transition:.3s;
     font-size:13px;
+    max-width:90%;
+    text-align:center;
 }
 
 .toast.show{
     transform:translateX(-50%) translateY(0);
+}
+
+/* =========================
+   ANIMATION
+========================= */
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.screen.active .card,
+.screen.active .hero,
+.screen.active .feature{
+    animation:fadeUp .35s ease both;
+}
+
+@media(min-width:700px){
+
+    body{
+        padding:20px 0;
+    }
+
+    .app{
+        border-radius:22px;
+        min-height:calc(100vh - 40px);
+    }
+
+    .bottom-nav{
+        bottom:20px;
+        border-radius:20px;
+        width:520px;
+    }
 }
 
 </style>
@@ -753,9 +842,9 @@ button{
 
 <div class="app">
 
-<!-- =====================================
-     HOME SCREEN
-===================================== -->
+<!-- =====================================================
+     HOME
+===================================================== -->
 
 <section id="home" class="screen active">
 
@@ -768,8 +857,13 @@ button{
 </div>
 
 <div>
+
 <h1>แมวดำปริ้นด่วน</h1>
-<p>พิมพ์งานออนไลน์ ส่งตรงถึงคุณ</p>
+
+<p>
+พิมพ์งานออนไลน์ ส่งตรงถึงคุณ
+</p>
+
 </div>
 
 </div>
@@ -787,16 +881,15 @@ button{
 <p>
 อัปโหลดงาน เลือกรูปแบบ
 คำนวณราคา และสั่งพิมพ์ได้ทันที
-ไม่ต้องเสียเวลาเดินทางมาที่ร้าน
 </p>
 
-<button class="main-btn" onclick="showScreen('order')">
-🖨️ เริ่มสั่งปริ้นงาน
-</button>
+<button
+class="main-btn"
+onclick="showScreen('order')">
 
-<div class="hero-cat">
-🐈‍⬛
-</div>
+🖨️ เริ่มสั่งปริ้นงาน
+
+</button>
 
 </div>
 
@@ -804,33 +897,80 @@ button{
 <div class="section">
 
 <div class="section-title">
-<h3>บริการของเรา</h3>
+
+<h3>
+บริการของเรา
+</h3>
+
 </div>
 
 <div class="features">
 
 <div class="feature">
-<div class="feature-icon">📄</div>
-<strong>อัปโหลดไฟล์</strong>
-<p>PDF / Word / PPT</p>
+
+<div class="feature-icon">
+📄
 </div>
 
-<div class="feature">
-<div class="feature-icon">🖨️</div>
-<strong>เลือกสี</strong>
-<p>สี / ขาวดำ</p>
+<strong>
+อัปโหลดไฟล์
+</strong>
+
+<p>
+PDF / Word / PPT
+</p>
+
 </div>
 
-<div class="feature">
-<div class="feature-icon">📑</div>
-<strong>เลือกกระดาษ</strong>
-<p>A4 / A3</p>
-</div>
 
 <div class="feature">
-<div class="feature-icon">📎</div>
-<strong>เข้าเล่ม</strong>
-<p>เย็บมุม / เข้าเล่ม</p>
+
+<div class="feature-icon">
+🖨️
+</div>
+
+<strong>
+เลือกสี
+</strong>
+
+<p>
+สี / ขาวดำ
+</p>
+
+</div>
+
+
+<div class="feature">
+
+<div class="feature-icon">
+📑
+</div>
+
+<strong>
+เลือกกระดาษ
+</strong>
+
+<p>
+A4 / A3
+</p>
+
+</div>
+
+
+<div class="feature">
+
+<div class="feature-icon">
+📎
+</div>
+
+<strong>
+เข้าเล่ม
+</strong>
+
+<p>
+เย็บมุม / เข้าเล่ม
+</p>
+
 </div>
 
 </div>
@@ -843,28 +983,61 @@ button{
 <div class="member-card">
 
 <div class="member-top">
-<div>
-<small>สมาชิกแมวดำ</small>
-<h3>ผู้ใช้งานทั่วไป</h3>
-</div>
 
 <div>
-<div class="points" id="homePoints">120</div>
-<small>แต้ม</small>
+
+<small>
+สมาชิกแมวดำ
+</small>
+
+<h3>
+ผู้ใช้งานทั่วไป
+</h3>
+
+</div>
+
+<div>
+
+<div
+class="points"
+id="homePoints">
+0
+</div>
+
+<small>
+ครั้งที่พิมพ์
+</small>
+
+</div>
+
+</div>
+
+
+<div style="margin-top:15px">
+
+<div class="progress">
+
+<div
+id="homeProgress"
+style="width:0%">
 </div>
 
 </div>
 
-<p style="margin-top:15px;font-size:12px;">
-สะสมแต้มทุกครั้งที่สั่งปริ้น
-ครบ 500 แต้ม รับส่วนลดพิเศษ
-</p>
+<small id="homePromoText">
+อีก 10 ครั้ง รับสิทธิ์พิเศษ
+</small>
+
+</div>
+
 
 <button
 class="main-btn"
-style="margin-top:12px;background:white;color:#18242b;"
+style="margin-top:12px;background:#fff;color:#18242b"
 onclick="openMember()">
+
 👤 ระบบสมาชิก
+
 </button>
 
 </div>
@@ -876,11 +1049,14 @@ onclick="openMember()">
 
 <div class="promo">
 
-<strong>🎁 โปรโมชั่นประจำเดือน</strong>
+<strong>
+🎁 โปรโมชั่นแมวดำ
+</strong>
 
 <p>
-สมาชิกใหม่ รับโบนัส 100 แต้ม
-และรับส่วนลดค่าปริ้น 10%
+สะสมการสั่งพิมพ์ครบ 10 ครั้ง
+รับสิทธิ์พิมพ์ฟรี 1 ครั้ง
+และครบ 20 ครั้ง รับของรางวัล
 </p>
 
 </div>
@@ -891,18 +1067,52 @@ onclick="openMember()">
 <div class="section">
 
 <div class="section-title">
-<h3>⭐ รีวิวจากลูกค้า</h3>
+
+<h3>
+🔔 การแจ้งเตือนล่าสุด
+</h3>
+
 </div>
+
+<div id="homeNotifications">
+
+<div class="notification">
+ยังไม่มีการแจ้งเตือนใหม่
+</div>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<div class="section-title">
+
+<h3>
+⭐ รีวิวจากลูกค้า
+</h3>
+
+</div>
+
 
 <div class="review">
 
 <div class="review-head">
-<strong>น้องมายด์</strong>
-<span class="stars">★★★★★</span>
+
+<strong>
+น้องมายด์
+</strong>
+
+<span class="stars">
+★★★★★
+</span>
+
 </div>
 
 <p>
-“สั่งปริ้นง่ายมากค่ะ ไม่ต้องเดินทางไปที่ร้าน
+“สั่งปริ้นง่ายมากค่ะ
+ไม่ต้องเดินทางไปที่ร้าน
 ไฟล์ออกมาสวยและส่งเร็วมาก”
 </p>
 
@@ -912,13 +1122,21 @@ onclick="openMember()">
 <div class="review">
 
 <div class="review-head">
-<strong>พี่นนท์</strong>
-<span class="stars">★★★★★</span>
+
+<strong>
+พี่นนท์
+</strong>
+
+<span class="stars">
+★★★★★
+</span>
+
 </div>
 
 <p>
-“ชอบระบบคำนวณราคามาก รู้ราคา
-ก่อนกดสั่งเลย สะดวกสุด ๆ”
+“ชอบระบบคำนวณราคามาก
+รู้ราคาก่อนกดสั่งเลย
+สะดวกสุด ๆ”
 </p>
 
 </div>
@@ -930,38 +1148,36 @@ onclick="openMember()">
 
 <div class="card">
 
-<h3>📞 ติดต่อเรา</h3>
+<h3>
+📞 ติดต่อเรา
+</h3>
 
-<div class="contact-item">
-<div class="contact-icon">📘</div>
-<div>
-<small>Facebook</small>
-<strong>Nadthida Padoohuemg</strong>
-</div>
-</div>
-
-<div class="contact-item">
-<div class="contact-icon">💬</div>
-<div>
-<small>LINE ID</small>
-<strong>nadthidadream</strong>
-</div>
+<div class="notification">
+📘 Facebook:
+<strong>
+Nadthida Padoohuemg
+</strong>
 </div>
 
-<div class="contact-item">
-<div class="contact-icon">📱</div>
-<div>
-<small>โทรศัพท์</small>
-<strong>0654851530</strong>
-</div>
+<div class="notification">
+💬 LINE ID:
+<strong>
+nadthidadream
+</strong>
 </div>
 
-<div class="contact-item">
-<div class="contact-icon">✉️</div>
-<div>
-<small>Gmail</small>
-<strong>natthida14518@gmail.com</strong>
+<div class="notification">
+📱 โทรศัพท์:
+<strong>
+0654851530
+</strong>
 </div>
+
+<div class="notification">
+✉️ Gmail:
+<strong>
+natthida14518@gmail.com
+</strong>
 </div>
 
 </div>
@@ -971,19 +1187,25 @@ onclick="openMember()">
 </section>
 
 
-<!-- =====================================
-     ORDER SCREEN
-===================================== -->
+<!-- =====================================================
+     ORDER
+===================================================== -->
 
 <section id="order" class="screen">
 
 <div class="topbar">
 
-<button class="back" onclick="showScreen('home')">
+<button
+class="back"
+onclick="showScreen('home')">
+
 ‹
+
 </button>
 
-<h2>🖨️ สั่งปริ้นงาน</h2>
+<h2>
+🖨️ สั่งปริ้นงาน
+</h2>
 
 </div>
 
@@ -995,13 +1217,17 @@ onclick="openMember()">
 
 <div class="card">
 
-<h3>📄 1. อัปโหลดไฟล์</h3>
+<h3>
+📄 1. อัปโหลดไฟล์
+</h3>
 
 <div class="upload">
 
-<div class="upload-icon">📁</div>
+<div class="upload-icon">
+📁
+</div>
 
-<p style="font-size:13px;margin-top:5px;">
+<p style="font-size:13px;margin-top:5px">
 รองรับ PDF / Word / PowerPoint
 </p>
 
@@ -1015,8 +1241,12 @@ onchange="showFile()">
 เลือกไฟล์
 </label>
 
-<div id="fileName" class="file-name">
+<div
+id="fileName"
+class="file-name">
+
 ยังไม่ได้เลือกไฟล์
+
 </div>
 
 </div>
@@ -1028,18 +1258,26 @@ onchange="showFile()">
 
 <div class="card">
 
-<h3>🖨️ 2. สีงานพิมพ์</h3>
+<h3>
+🖨️ 2. สีงานพิมพ์
+</h3>
 
 <div class="option-grid">
 
-<div class="option selected"
+<div
+class="option selected"
 onclick="selectOption(this,'color','สี')">
+
 🟦 สี
+
 </div>
 
-<div class="option"
+<div
+class="option"
 onclick="selectOption(this,'color','ขาวดำ')">
+
 ⬛ ขาวดำ
+
 </div>
 
 </div>
@@ -1051,18 +1289,26 @@ onclick="selectOption(this,'color','ขาวดำ')">
 
 <div class="card">
 
-<h3>📑 3. ขนาดกระดาษ</h3>
+<h3>
+📑 3. ขนาดกระดาษ
+</h3>
 
 <div class="option-grid">
 
-<div class="option selected"
+<div
+class="option selected"
 onclick="selectOption(this,'paper','A4')">
+
 📄 A4
+
 </div>
 
-<div class="option"
+<div
+class="option"
 onclick="selectOption(this,'paper','A3')">
+
 📄 A3
+
 </div>
 
 </div>
@@ -1074,18 +1320,26 @@ onclick="selectOption(this,'paper','A3')">
 
 <div class="card">
 
-<h3>📖 4. รูปแบบการพิมพ์</h3>
+<h3>
+📖 4. รูปแบบการพิมพ์
+</h3>
 
 <div class="option-grid">
 
-<div class="option selected"
+<div
+class="option selected"
 onclick="selectOption(this,'side','หน้าเดียว')">
+
 1️⃣ หน้าเดียว
+
 </div>
 
-<div class="option"
+<div
+class="option"
 onclick="selectOption(this,'side','สองหน้า')">
+
 2️⃣ สองหน้า
+
 </div>
 
 </div>
@@ -1097,23 +1351,34 @@ onclick="selectOption(this,'side','สองหน้า')">
 
 <div class="card">
 
-<h3>📎 5. การเข้าเล่ม</h3>
+<h3>
+📎 5. การเข้าเล่ม
+</h3>
 
 <div class="option-grid">
 
-<div class="option selected"
+<div
+class="option selected"
 onclick="selectOption(this,'bind','ไม่เข้าเล่ม')">
+
 ❌ ไม่เข้าเล่ม
+
 </div>
 
-<div class="option"
+<div
+class="option"
 onclick="selectOption(this,'bind','เย็บมุม')">
+
 📌 เย็บมุม
+
 </div>
 
-<div class="option"
+<div
+class="option"
 onclick="selectOption(this,'bind','เข้าเล่ม')">
+
 📚 เข้าเล่ม
+
 </div>
 
 </div>
@@ -1125,11 +1390,15 @@ onclick="selectOption(this,'bind','เข้าเล่ม')">
 
 <div class="card">
 
-<h3>📃 6. จำนวนหน้า</h3>
+<h3>
+📃 6. จำนวนหน้า
+</h3>
 
 <div class="form-group">
 
-<label>จำนวนหน้า</label>
+<label>
+จำนวนหน้า
+</label>
 
 <input
 type="number"
@@ -1140,9 +1409,12 @@ oninput="calculatePrice()">
 
 </div>
 
+
 <div class="form-group">
 
-<label>จำนวนชุด</label>
+<label>
+จำนวนชุด
+</label>
 
 <input
 type="number"
@@ -1160,18 +1432,26 @@ oninput="calculatePrice()">
 
 <div class="card">
 
-<h3>🚚 7. วิธีรับงาน</h3>
+<h3>
+🚚 7. วิธีรับงาน
+</h3>
 
 <div class="option-grid">
 
-<div class="option selected"
+<div
+class="option selected"
 onclick="selectDelivery(this,'รับที่ร้าน')">
+
 🏪 รับที่ร้าน
+
 </div>
 
-<div class="option"
+<div
+class="option"
 onclick="selectDelivery(this,'จัดส่ง')">
+
 🚚 จัดส่ง
+
 </div>
 
 </div>
@@ -1181,42 +1461,94 @@ onclick="selectDelivery(this,'จัดส่ง')">
 
 <!-- MAP -->
 
-<div class="card" id="mapCard" style="display:none;">
+<div
+class="card"
+id="mapCard"
+style="display:none">
 
-<h3>📍 8. ระบุตำแหน่งจัดส่ง</h3>
+<h3>
+📍 8. ที่อยู่จัดส่ง
+</h3>
 
-<p style="font-size:12px;color:#71858e;margin-bottom:10px;">
-พื้นที่จัดส่ง: อำเภอเมืองพิษณุโลก จังหวัดพิษณุโลก
-</p>
 
-<div id="map"></div>
+<div class="form-group">
+
+<label>
+กรอกที่อยู่ / สถานที่ใกล้เคียง
+</label>
+
+<input
+id="addressSearch"
+placeholder="เช่น มหาวิทยาลัยราชภัฏพิบูลสงคราม"
+onkeydown="if(event.key==='Enter')searchAddress()">
+
+</div>
+
+
+<button
+class="small-btn"
+onclick="searchAddress()">
+
+🔎 ค้นหาที่อยู่
+
+</button>
+
+
+<div
+id="addressResult"
+class="address-result">
+</div>
+
+
+<div
+id="map"
+style="margin-top:10px">
+</div>
+
 
 <div class="map-buttons">
 
-<button class="map-btn" onclick="useCurrentLocation()">
+<button
+class="map-btn"
+onclick="useCurrentLocation()">
+
 📍 ตำแหน่งปัจจุบัน
+
 </button>
 
-<button class="map-btn" onclick="clearMapMarker()">
+
+<button
+class="map-btn"
+onclick="clearMapMarker()">
+
 🗑️ ล้างตำแหน่ง
+
 </button>
 
 </div>
 
-<div class="form-group" style="margin-top:12px;">
 
-<label>รายละเอียดที่อยู่เพิ่มเติม</label>
+<div
+class="form-group"
+style="margin-top:12px">
+
+<label>
+รายละเอียดเพิ่มเติม
+</label>
 
 <input
-type="text"
 id="addressDetail"
-placeholder="เช่น บ้านเลขที่ / หมู่ / ซอย / อาคาร">
+placeholder="บ้านเลขที่ / หมู่ / ซอย / อาคาร">
 
 </div>
 
-<p id="locationText"
-style="font-size:11px;color:#4b8da4;margin-top:8px;">
-กรุณาแตะบนแผนที่เพื่อเลือกตำแหน่ง
+
+<p
+id="locationText"
+style="font-size:11px;color:#4b8da4;margin-top:8px">
+
+กรุณาค้นหาที่อยู่หรือแตะบนแผนที่
+
 </p>
 
 </div>
@@ -1226,35 +1558,78 @@ style="font-size:11px;color:#4b8da4;margin-top:8px;">
 
 <div class="card">
 
-<h3>💰 สรุปค่าใช้จ่าย</h3>
+<h3>
+💰 สรุปค่าใช้จ่าย
+</h3>
 
 <div class="price-box">
 
 <div class="price-row">
-<span>ค่าพิมพ์</span>
-<strong id="printPrice">50 บาท</strong>
+
+<span>
+ค่าพิมพ์
+</span>
+
+<strong id="printPrice">
+0 บาท
+</strong>
+
 </div>
 
-<div class="price-row">
-<span>ค่าเข้าเล่ม</span>
-<strong id="bindPrice">0 บาท</strong>
-</div>
 
 <div class="price-row">
-<span>ค่าจัดส่ง</span>
-<strong id="deliveryPrice">0 บาท</strong>
+
+<span>
+ค่าเข้าเล่ม
+</span>
+
+<strong id="bindPrice">
+0 บาท
+</strong>
+
 </div>
 
+
 <div class="price-row">
-<span>ส่วนลดสมาชิก</span>
-<strong id="discount">0 บาท</strong>
+
+<span>
+ค่าจัดส่ง
+</span>
+
+<strong id="deliveryPrice">
+0 บาท
+</strong>
+
 </div>
+
+
+<div class="price-row">
+
+<span>
+ส่วนลดโปรโมชั่น
+</span>
+
+<strong id="discount">
+0 บาท
+</strong>
+
+</div>
+
 
 <div class="total">
-<span>รวมทั้งหมด</span>
-<span style="float:right;" id="totalPrice">
-50 บาท
+
+<span>
+รวมทั้งหมด
 </span>
+
+<span
+style="float:right"
+id="totalPrice">
+
+0 บาท
+
+</span>
+
 </div>
 
 </div>
@@ -1265,7 +1640,9 @@ style="font-size:11px;color:#4b8da4;margin-top:8px;">
 <button
 class="confirm-btn"
 onclick="confirmOrder()">
+
 💳 ยืนยันและชำระเงิน
+
 </button>
 
 </div>
@@ -1273,61 +1650,61 @@ onclick="confirmOrder()">
 </section>
 
 
-<!-- =====================================
+<!-- =====================================================
      TRACKING
-===================================== -->
+===================================================== -->
 
 <section id="tracking" class="screen">
 
 <div class="topbar">
 
-<button class="back" onclick="showScreen('home')">
+<button
+class="back"
+onclick="showScreen('home')">
+
 ‹
+
 </button>
 
-<h2>📦 ติดตามงาน</h2>
+<h2>
+📦 ติดตามงาน
+</h2>
 
 </div>
+
 
 <div class="order-container">
 
 <div class="card">
 
-<h3>📦 ออเดอร์ล่าสุด</h3>
+<h3>
+📦 ออเดอร์ล่าสุด
+</h3>
 
-<p style="font-size:13px;">
+<p style="font-size:13px">
+
 เลขที่คำสั่งซื้อ:
-<strong id="orderID">ยังไม่มี</strong>
+
+<strong id="orderID">
+ยังไม่มี
+</strong>
+
 </p>
 
-<div class="status-list">
 
-<div class="status active">
-<div class="status-circle">✓</div>
-<span>รับออเดอร์</span>
+<div
+class="status-list"
+id="trackingStatuses">
 </div>
 
-<div class="status active">
-<div class="status-circle">🖨</div>
-<span>กำลังพิมพ์</span>
-</div>
-
-<div class="status">
-<div class="status-circle">📦</div>
-<span>เตรียมส่ง</span>
-</div>
-
-<div class="status">
-<div class="status-circle">🚚</div>
-<span>จัดส่ง</span>
-</div>
-
-</div>
 
 <div
 id="trackingMessage"
-style="margin-top:20px;background:#eefaff;padding:13px;border-radius:12px;font-size:12px;">
+class="notification"
+style="margin-top:20px">
+
 ยังไม่มีคำสั่งซื้อ
+
 </div>
 
 </div>
@@ -1335,28 +1712,67 @@ style="margin-top:20px;background:#eefaff;padding:13px;border-radius:12px;font-s
 
 <div class="card">
 
-<h3>⭐ ให้คะแนนบริการ</h3>
+<h3>
+🔔 แจ้งเตือนสถานะ
+</h3>
 
-<div style="text-align:center;font-size:35px;letter-spacing:5px;">
+<div id="trackingNotifications">
 
-<span onclick="rate(1)">☆</span>
-<span onclick="rate(2)">☆</span>
-<span onclick="rate(3)">☆</span>
-<span onclick="rate(4)">☆</span>
-<span onclick="rate(5)">☆</span>
+<div class="notification">
+ยังไม่มีข้อมูล
+</div>
 
 </div>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+⭐ ให้คะแนนบริการ
+</h3>
+
+<div
+style="text-align:center;font-size:35px;letter-spacing:5px"
+id="ratingStars">
+
+<span onclick="rate(1)">
+☆
+</span>
+
+<span onclick="rate(2)">
+☆
+</span>
+
+<span onclick="rate(3)">
+☆
+</span>
+
+<span onclick="rate(4)">
+☆
+</span>
+
+<span onclick="rate(5)">
+☆
+</span>
+
+</div>
+
 
 <textarea
 id="reviewText"
 placeholder="เขียนรีวิวของคุณ..."
-style="width:100%;height:90px;border:1px solid #d8e8ed;border-radius:12px;padding:10px;margin-top:10px;">
+style="width:100%;height:90px;border:1px solid #d8e8ed;border-radius:12px;padding:10px;margin-top:10px">
 </textarea>
+
 
 <button
 class="confirm-btn"
 onclick="submitReview()">
+
 ส่งรีวิว
+
 </button>
 
 </div>
@@ -1366,40 +1782,53 @@ onclick="submitReview()">
 </section>
 
 
-<!-- =====================================
-     MEMBER SCREEN
-===================================== -->
+<!-- =====================================================
+     MEMBER
+===================================================== -->
 
 <section id="member" class="screen">
 
 <div class="topbar">
 
-<button class="back" onclick="showScreen('home')">
+<button
+class="back"
+onclick="showScreen('home')">
+
 ‹
+
 </button>
 
-<h2>👤 สมาชิก</h2>
+<h2>
+👤 สมาชิก
+</h2>
 
 </div>
+
 
 <div class="order-container">
 
 <div class="member-card">
 
-<small>สมาชิก</small>
+<small>
+สมาชิก
+</small>
 
-<h2 style="margin-top:5px;">
+<h2 style="margin-top:5px">
 แมวดำ Member
 </h2>
 
-<div style="margin-top:15px;">
+<div style="margin-top:15px">
 
-<span class="points" id="memberPoints">
-120
+<span
+class="points"
+id="memberPoints">
+
+0
+
 </span>
 
-<span style="font-size:12px;">
-คะแนน
+<span style="font-size:12px">
+ครั้งที่สั่งพิมพ์
 </span>
 
 </div>
@@ -1409,48 +1838,54 @@ onclick="submitReview()">
 
 <div class="card">
 
-<h3>🏆 ระดับสมาชิก</h3>
+<h3>
+🎯 ความคืบหน้าโปรโมชั่น
+</h3>
 
-<p style="font-size:13px;">
-Bronze Member
+<p
+id="memberPromoText"
+style="font-size:13px;margin-bottom:10px">
 </p>
 
-<div style="background:#e8f0f2;height:8px;border-radius:20px;margin-top:12px;">
+
+<div class="progress">
 
 <div
-style="width:24%;height:100%;background:#55b8db;border-radius:20px;">
+id="memberProgress"
+style="width:0%">
 </div>
 
 </div>
 
-<p style="font-size:11px;color:#78909a;margin-top:7px;">
-สะสมอีก 380 แต้ม เพื่อรับสิทธิพิเศษระดับต่อไป
-</p>
-
 </div>
 
-
-<div class="card">
-
-<h3>🎁 สิทธิพิเศษ</h3>
-
-<p style="font-size:13px;line-height:2;">
-✓ สะสมแต้มทุกการสั่งซื้อ<br>
-✓ ส่วนลดสมาชิก<br>
-✓ โปรโมชั่นเฉพาะสมาชิก<br>
-✓ รับแต้มพิเศษในวันเกิด
-</p>
-
-</div>
-
-
-<div class="card">
-
-<h3>🎟️ โปรโมชั่นของคุณ</h3>
 
 <div class="promo">
-<strong>PRINT10</strong>
-<p>ส่วนลด 10% สำหรับการสั่งปริ้นครั้งถัดไป</p>
+
+<strong>
+🎁 สิทธิ์ของคุณ
+</strong>
+
+<p
+id="rewardText"
+style="line-height:1.7">
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+📜 ประวัติสิทธิ์
+</h3>
+
+<div id="rewardHistory">
+
+<div class="notification">
+ยังไม่มีการใช้สิทธิ์
+</div>
+
 </div>
 
 </div>
@@ -1460,79 +1895,171 @@ style="width:24%;height:100%;background:#55b8db;border-radius:20px;">
 </section>
 
 
-<!-- =====================================
-     ADMIN SCREEN
-===================================== -->
+<!-- =====================================================
+     ADMIN
+===================================================== -->
 
 <section id="admin" class="screen">
 
-<div class="topbar">
+<div class="admin-head">
 
-<button class="back" onclick="showScreen('home')">
-‹
-</button>
+<div
+style="display:flex;justify-content:space-between;align-items:center">
 
-<h2>🏪 ระบบหลังร้าน</h2>
+<div>
+
+<small>
+🐈‍⬛ แมวดำปริ้นด่วน
+</small>
+
+<h2>
+Admin Dashboard
+</h2>
 
 </div>
+
+
+<button
+class="small-btn"
+onclick="adminLogout()">
+
+ออกจากระบบ
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="admin-nav">
+
+<button
+class="admin-tab active"
+onclick="adminTab('overview',this)">
+
+📊 ภาพรวม
+
+</button>
+
+
+<button
+class="admin-tab"
+onclick="adminTab('orders',this)">
+
+📦 ออเดอร์
+
+</button>
+
+
+<button
+class="admin-tab"
+onclick="adminTab('promo',this)">
+
+🎁 โปรโมชั่น
+
+</button>
+
+</div>
+
 
 <div class="order-container">
 
+
+<!-- OVERVIEW -->
+
+<div id="adminOverview">
+
+<div class="stat-grid">
+
+<div class="stat">
+
+📦
+
+<div
+class="n"
+id="statOrders">
+
+0
+
+</div>
+
+<small>
+ออเดอร์ทั้งหมด
+</small>
+
+</div>
+
+
+<div class="stat">
+
+💰
+
+<div
+class="n"
+id="statSales">
+
+0
+
+</div>
+
+<small>
+ยอดขาย (บาท)
+</small>
+
+</div>
+
+
+<div class="stat">
+
+🖨️
+
+<div
+class="n"
+id="statPrinting">
+
+0
+
+</div>
+
+<small>
+กำลังดำเนินการ
+</small>
+
+</div>
+
+
+<div class="stat">
+
+👥
+
+<div
+class="n"
+id="statCustomers">
+
+1
+
+</div>
+
+<small>
+ลูกค้า
+</small>
+
+</div>
+
+</div>
+
+
 <div class="card">
 
-<h3>📊 ภาพรวมร้าน</h3>
+<h3>
+📈 ยอดขายรายออเดอร์
+</h3>
 
-<div class="features">
+<div class="chart-box">
 
-<div class="feature">
-<div class="feature-icon">📦</div>
-<strong id="adminOrders">0</strong>
-<p>ออเดอร์</p>
-</div>
-
-<div class="feature">
-<div class="feature-icon">💰</div>
-<strong>1,250</strong>
-<p>ยอดขาย</p>
-</div>
-
-</div>
-
-</div>
-
-
-<div class="card admin-card">
-
-<h3>🧾 ออเดอร์ #MD20260902</h3>
-
-<p style="font-size:12px;">
-ลูกค้า: สมาชิกแมวดำ
-</p>
-
-<div class="admin-status">
-สถานะ:
-<strong id="adminOrderStatus">
-กำลังพิมพ์
-</strong>
-</div>
-
-<div class="admin-buttons">
-
-<button onclick="adminStatus('รับออเดอร์')">
-รับออเดอร์
-</button>
-
-<button onclick="adminStatus('กำลังพิมพ์')">
-กำลังพิมพ์
-</button>
-
-<button onclick="adminStatus('เตรียมจัดส่ง')">
-เตรียมจัดส่ง
-</button>
-
-<button onclick="adminStatus('จัดส่งแล้ว')">
-จัดส่งแล้ว
-</button>
+<canvas id="salesChart">
+</canvas>
 
 </div>
 
@@ -1541,29 +2068,121 @@ style="width:24%;height:100%;background:#55b8db;border-radius:20px;">
 
 <div class="card">
 
-<h3>📍 ข้อมูลการจัดส่ง</h3>
+<h3>
+📊 จำนวนออเดอร์ตามสถานะ
+</h3>
 
-<p style="font-size:12px;line-height:1.8;">
-จังหวัด: พิษณุโลก<br>
-อำเภอ: เมืองพิษณุโลก<br>
-ระบบรองรับการเลือกพิกัดจากแผนที่
-</p>
+<div class="chart-box">
+
+<canvas id="statusChart">
+</canvas>
+
+</div>
 
 </div>
 
 
 <div class="card">
 
-<h3>⚙️ จัดการร้าน</h3>
+<h3>
+🔔 การแจ้งเตือนหลังร้าน
+</h3>
 
-<p style="font-size:13px;line-height:2;">
-👥 จัดการสมาชิก<br>
-🎁 จัดการโปรโมชั่น<br>
-🏆 จัดการคะแนนสะสม<br>
-🧾 ตรวจสอบคำสั่งซื้อ<br>
-📦 อัปเดตสถานะงาน<br>
-⭐ ตรวจสอบรีวิว
+<div id="adminNotifications">
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ORDERS -->
+
+<div
+id="adminOrdersPanel"
+style="display:none">
+
+<div class="card">
+
+<h3>
+🧾 รายการออเดอร์
+</h3>
+
+<div id="adminOrderList">
+
+<div class="notification">
+ยังไม่มีออเดอร์
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- PROMOTION -->
+
+<div
+id="adminPromoPanel"
+style="display:none">
+
+<div class="card">
+
+<h3>
+🎁 ระบบโปรโมชั่น
+</h3>
+
+<p
+style="font-size:13px;line-height:1.8">
+
+• ครบ 10 ครั้ง → ใช้สิทธิ์พิมพ์ฟรี 1 ครั้ง
+<br>
+• ครบ 20 ครั้ง → รับของรางวัล
+<br>
+• ระบบนับจากจำนวนออเดอร์ที่ชำระเงินสำเร็จ
+
 </p>
+
+<button
+class="confirm-btn"
+onclick="showToast('เปิดใช้งานโปรโมชั่นแล้ว')">
+
+บันทึกโปรโมชั่น
+
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+📢 สร้างประกาศโปรโมชั่น
+</h3>
+
+<div class="form-group">
+
+<label>
+ข้อความ
+</label>
+
+<input
+id="promoAnnouncement"
+placeholder="เช่น ส่งฟรีเมื่อสั่งครบ 300 บาท">
+
+</div>
+
+
+<button
+class="confirm-btn"
+onclick="createPromo()">
+
+เผยแพร่โปรโมชั่น
+
+</button>
+
+</div>
 
 </div>
 
@@ -1572,9 +2191,9 @@ style="width:24%;height:100%;background:#55b8db;border-radius:20px;">
 </section>
 
 
-<!-- =====================================
+<!-- =====================================================
      BOTTOM NAV
-===================================== -->
+===================================================== -->
 
 <nav class="bottom-nav">
 
@@ -1582,34 +2201,49 @@ style="width:24%;height:100%;background:#55b8db;border-radius:20px;">
 class="nav-btn active"
 onclick="showScreen('home')">
 
-<div>🏠</div>
+<div>
+🏠
+</div>
+
 หน้าหลัก
 
 </button>
+
 
 <button
 class="nav-btn"
 onclick="showScreen('order')">
 
-<div>🖨️</div>
+<div>
+🖨️
+</div>
+
 สั่งปริ้น
 
 </button>
+
 
 <button
 class="nav-btn"
 onclick="showScreen('tracking')">
 
-<div>📦</div>
+<div>
+📦
+</div>
+
 ติดตามงาน
 
 </button>
+
 
 <button
 class="nav-btn"
 onclick="openMenu()">
 
-<div>☰</div>
+<div>
+☰
+</div>
+
 เมนู
 
 </button>
@@ -1617,42 +2251,63 @@ onclick="openMenu()">
 </nav>
 
 
-<!-- =====================================
+<!-- =====================================================
      MENU MODAL
-===================================== -->
+===================================================== -->
 
-<div class="modal" id="menuModal">
+<div
+class="modal"
+id="menuModal">
 
 <div class="modal-box">
 
-<button class="close" onclick="closeMenu()">×</button>
+<button
+class="close"
+onclick="closeMenu()">
 
-<h2 style="margin-bottom:20px;">
+×
+</button>
+
+<h2 style="margin-bottom:20px">
+
 🐈‍⬛ เมนูแมวดำปริ้นด่วน
+
 </h2>
 
-<button
-class="confirm-btn"
-onclick="closeMenu();openMember();">
-👤 สมาชิก / คะแนนสะสม
-</button>
 
 <button
 class="confirm-btn"
-onclick="closeMenu();showScreen('tracking');">
+onclick="closeMenu();openMember()">
+
+👤 สมาชิก / โปรโมชั่น
+
+</button>
+
+
+<button
+class="confirm-btn"
+onclick="closeMenu();showScreen('tracking')">
+
 📦 ติดตามคำสั่งซื้อ
+
 </button>
+
 
 <button
 class="confirm-btn"
-onclick="closeMenu();showScreen('admin');">
+onclick="closeMenu();openAdminLogin()">
+
 🏪 ระบบหลังร้าน
+
 </button>
+
 
 <button
 class="confirm-btn"
-onclick="closeMenu();showScreen('home');">
+onclick="closeMenu();showScreen('home')">
+
 📞 ติดต่อร้าน
+
 </button>
 
 </div>
@@ -1660,72 +2315,183 @@ onclick="closeMenu();showScreen('home');">
 </div>
 
 
-<!-- =====================================
-     PAYMENT MODAL
-===================================== -->
+<!-- =====================================================
+     ADMIN LOGIN
+===================================================== -->
 
-<div class="modal" id="paymentModal">
+<div
+class="modal"
+id="loginModal">
 
 <div class="modal-box">
 
-<button class="close" onclick="closePayment()">×</button>
+<button
+class="close"
+onclick="closeLogin()">
 
-<h2>💳 ชำระเงิน</h2>
+×
+</button>
 
-<p style="font-size:13px;color:#71858e;margin:10px 0 15px;">
-ยอดชำระทั้งหมด
+
+<div class="login-logo">
+🐈‍⬛
+</div>
+
+
+<h2 style="text-align:center">
+เข้าสู่ระบบ Admin
+</h2>
+
+
+<p
+class="muted"
+style="text-align:center;margin:8px 0 18px">
+
+สำหรับผู้ดูแลร้านเท่านั้น
+
 </p>
 
-<h1 style="color:#2698bd;margin-bottom:20px;"
+
+<div class="form-group">
+
+<label>
+รหัส Admin
+</label>
+
+<input
+id="adminPin"
+class="pin"
+type="password"
+maxlength="4"
+inputmode="numeric"
+placeholder="••••">
+
+</div>
+
+
+<button
+class="confirm-btn"
+onclick="adminLogin()">
+
+เข้าสู่ Dashboard
+
+</button>
+
+
+<p
+class="muted"
+style="text-align:center;margin-top:10px">
+
+Demo password: 1234
+
+</p>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     PAYMENT
+===================================================== -->
+
+<div
+class="modal"
+id="paymentModal">
+
+<div class="modal-box">
+
+<button
+class="close"
+onclick="closePayment()">
+
+×
+</button>
+
+
+<h2>
+💳 ชำระเงิน
+</h2>
+
+
+<p
+class="muted"
+style="margin:10px 0 5px">
+
+ยอดชำระทั้งหมด
+
+</p>
+
+
+<h1
+style="color:#2698bd;margin-bottom:18px"
 id="paymentAmount">
+
 0 บาท
+
 </h1>
+
 
 <div class="option-grid">
 
 <div
 class="option selected"
 onclick="selectPayment(this)">
+
 📱 QR Payment
+
 </div>
+
 
 <div
 class="option"
 onclick="selectPayment(this)">
+
 💳 บัตร
+
 </div>
+
 
 <div
 class="option"
 onclick="selectPayment(this)">
+
 🏦 โอนธนาคาร
+
 </div>
+
 
 <div
 class="option"
 onclick="selectPayment(this)">
+
 💵 ชำระที่ร้าน
+
 </div>
 
 </div>
+
 
 <div
-style="text-align:center;margin:20px 0;background:#f0fbff;padding:20px;border-radius:15px;">
+style="text-align:center;margin:18px 0;background:#f0fbff;padding:18px;border-radius:15px">
 
-<div style="font-size:80px;">
+<div style="font-size:75px">
 ▦
 </div>
 
-<p style="font-size:11px;">
+<p class="muted">
 QR สำหรับชำระเงิน Demo
 </p>
 
 </div>
 
+
 <button
 class="confirm-btn"
 onclick="paymentSuccess()">
-✓ ชำระเงินเรียบร้อย
+
+✓ ยืนยันการชำระเงิน
+
 </button>
 
 </div>
@@ -1735,8 +2501,9 @@ onclick="paymentSuccess()">
 
 <!-- TOAST -->
 
-<div class="toast" id="toast">
-ดำเนินการสำเร็จ
+<div
+class="toast"
+id="toast">
 </div>
 
 </div>
@@ -1744,625 +2511,2071 @@ onclick="paymentSuccess()">
 
 <script>
 
-/* =====================================
+/* =====================================================
    DATA
-===================================== */
+===================================================== */
+
+const KEY = "blackcat_print_v3";
+
+let state =
+JSON.parse(localStorage.getItem(KEY) || "null")
+||
+{
+    orders:[],
+    printCount:0,
+    rewards:[],
+    notifications:[],
+    promoAnnouncements:[],
+    userPoints:0,
+    currentOrderId:null
+};
+
 
 let orderData = {
 
-color:"สี",
+    color:"สี",
 
-paper:"A4",
+    paper:"A4",
 
-side:"หน้าเดียว",
+    side:"หน้าเดียว",
 
-bind:"ไม่เข้าเล่ม",
+    bind:"ไม่เข้าเล่ม",
 
-delivery:"รับที่ร้าน",
+    delivery:"รับที่ร้าน",
 
-pages:10,
+    pages:10,
 
-copies:1,
+    copies:1,
 
-points:120,
+    lat:null,
 
-lat:null,
+    lng:null,
 
-lng:null
+    address:""
 
 };
 
-let map;
-let marker;
-let routeLine;
+
+let map = null;
+
+let marker = null;
+
+let routeLine = null;
 
 let currentRating = 0;
 
+let salesChart = null;
 
-/* =====================================
+let statusChart = null;
+
+
+/* =====================================================
+   SAVE
+===================================================== */
+
+function save(){
+
+    localStorage.setItem(
+        KEY,
+        JSON.stringify(state)
+    );
+
+    renderAll();
+}
+
+
+/* =====================================================
    SCREEN
-===================================== */
+===================================================== */
 
 function showScreen(id){
 
-document.querySelectorAll(".screen")
-.forEach(s=>s.classList.remove("active"));
+    if(
+        id === "admin"
+        &&
+        !sessionStorage.getItem("adminAuth")
+    ){
 
-document.getElementById(id)
-.classList.add("active");
+        openAdminLogin();
 
-window.scrollTo(0,0);
+        return;
+    }
+
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(x =>
+            x.classList.remove("active")
+        );
+
+
+    document
+        .getElementById(id)
+        .classList.add("active");
+
+
+    window.scrollTo(0,0);
+
+
+    document
+        .querySelectorAll(".nav-btn")
+        .forEach(x =>
+            x.classList.remove("active")
+        );
 
 }
 
-/* =====================================
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+
+    toast.textContent = message;
+
+
+    toast.classList.add("show");
+
+
+    clearTimeout(window.tt);
+
+
+    window.tt =
+        setTimeout(
+            () =>
+                toast.classList.remove("show"),
+            2600
+        );
+
+}
+
+
+/* =====================================================
+   MENU
+===================================================== */
+
+function openMenu(){
+
+    document
+        .getElementById("menuModal")
+        .classList.add("show");
+
+}
+
+
+function closeMenu(){
+
+    document
+        .getElementById("menuModal")
+        .classList.remove("show");
+
+}
+
+
+/* =====================================================
+   MEMBER
+===================================================== */
+
+function openMember(){
+
+    showScreen("member");
+
+    renderMember();
+
+}
+
+
+/* =====================================================
    FILE
-===================================== */
+===================================================== */
 
 function showFile(){
 
-const input=document.getElementById("fileInput");
+    const file =
+        document
+        .getElementById("fileInput")
+        .files[0];
 
-if(input.files.length){
 
-document.getElementById("fileName").innerText=
-"📄 "+input.files[0].name;
-
-}
-
-}
-
-/* =====================================
-   OPTION
-===================================== */
-
-function selectOption(el,type,value){
-
-el.parentElement
-.querySelectorAll(".option")
-.forEach(x=>x.classList.remove("selected"));
-
-el.classList.add("selected");
-
-orderData[type]=value;
-
-calculatePrice();
+    document
+        .getElementById("fileName")
+        .textContent =
+        file
+        ?
+        "📄 " + file.name
+        :
+        "ยังไม่ได้เลือกไฟล์";
 
 }
 
 
-/* =====================================
+/* =====================================================
+   OPTIONS
+===================================================== */
+
+function selectOption(
+    element,
+    type,
+    value
+){
+
+    element
+        .parentElement
+        .querySelectorAll(".option")
+        .forEach(
+            x =>
+                x.classList.remove("selected")
+        );
+
+
+    element.classList.add("selected");
+
+
+    orderData[type] = value;
+
+
+    calculatePrice();
+
+}
+
+
+/* =====================================================
    DELIVERY
-===================================== */
+===================================================== */
 
-function selectDelivery(el,value){
+function selectDelivery(
+    element,
+    value
+){
 
-el.parentElement
-.querySelectorAll(".option")
-.forEach(x=>x.classList.remove("selected"));
+    element
+        .parentElement
+        .querySelectorAll(".option")
+        .forEach(
+            x =>
+                x.classList.remove("selected")
+        );
 
-el.classList.add("selected");
 
-orderData.delivery=value;
+    element.classList.add("selected");
 
-const mapCard=document.getElementById("mapCard");
 
-if(value==="จัดส่ง"){
+    orderData.delivery = value;
 
-mapCard.style.display="block";
 
-setTimeout(initMap,200);
+    const mapCard =
+        document.getElementById("mapCard");
 
-}else{
 
-mapCard.style.display="none";
+    mapCard.style.display =
+        value === "จัดส่ง"
+        ?
+        "block"
+        :
+        "none";
+
+
+    if(value === "จัดส่ง"){
+
+        setTimeout(
+            initMap,
+            200
+        );
+
+    }
+
+
+    calculatePrice();
 
 }
 
-calculatePrice();
 
-}
-
-
-/* =====================================
+/* =====================================================
    PRICE
-===================================== */
+===================================================== */
 
 function calculatePrice(){
 
-let pages=parseInt(
-document.getElementById("pages").value
-)||1;
+    const pages =
+        Math.max(
+            1,
+            +document
+                .getElementById("pages")
+                .value
+            || 1
+        );
 
-let copies=parseInt(
-document.getElementById("copies").value
-)||1;
 
-orderData.pages=pages;
-orderData.copies=copies;
+    const copies =
+        Math.max(
+            1,
+            +document
+                .getElementById("copies")
+                .value
+            || 1
+        );
 
-let price=0;
 
-/* color */
+    orderData.pages = pages;
 
-if(orderData.color==="สี"){
+    orderData.copies = copies;
 
-price += orderData.paper==="A4" ? 3 : 6;
 
-}else{
+    let unitPrice;
 
-price += orderData.paper==="A4" ? 1 : 2;
+
+    if(orderData.color === "สี"){
+
+        unitPrice =
+            orderData.paper === "A4"
+            ?
+            3
+            :
+            6;
+
+    }
+    else{
+
+        unitPrice =
+            orderData.paper === "A4"
+            ?
+            1
+            :
+            2;
+
+    }
+
+
+    if(orderData.side === "สองหน้า"){
+
+        unitPrice *= 0.9;
+
+    }
+
+
+    const printPrice =
+        Math.ceil(
+            unitPrice *
+            pages *
+            copies
+        );
+
+
+    let bindPrice = 0;
+
+
+    if(
+        orderData.bind === "เย็บมุม"
+    ){
+
+        bindPrice =
+            5 * copies;
+
+    }
+
+
+    if(
+        orderData.bind === "เข้าเล่ม"
+    ){
+
+        bindPrice =
+            20 * copies;
+
+    }
+
+
+    const deliveryPrice =
+        orderData.delivery === "จัดส่ง"
+        ?
+        30
+        :
+        0;
+
+
+    /*
+       ครบ 10 ครั้ง
+       ครั้งที่ 10 ได้ส่วนลดค่าพิมพ์+เข้าเล่ม
+    */
+
+    let discount = 0;
+
+
+    if(
+        state.printCount % 10 === 9
+    ){
+
+        discount =
+            printPrice +
+            bindPrice;
+
+    }
+
+
+    const total =
+        Math.max(
+            0,
+            printPrice +
+            bindPrice +
+            deliveryPrice -
+            discount
+        );
+
+
+    document
+        .getElementById("printPrice")
+        .textContent =
+        printPrice + " บาท";
+
+
+    document
+        .getElementById("bindPrice")
+        .textContent =
+        bindPrice + " บาท";
+
+
+    document
+        .getElementById("deliveryPrice")
+        .textContent =
+        deliveryPrice + " บาท";
+
+
+    document
+        .getElementById("discount")
+        .textContent =
+        "-" + discount + " บาท";
+
+
+    document
+        .getElementById("totalPrice")
+        .textContent =
+        total + " บาท";
+
+
+    return {
+
+        print:printPrice,
+
+        bind:bindPrice,
+
+        delivery:deliveryPrice,
+
+        discount:discount,
+
+        total:total
+
+    };
 
 }
 
-/* double side */
 
-if(orderData.side==="สองหน้า"){
-
-price*=0.9;
-
-}
-
-let printPrice=
-Math.ceil(price*pages*copies);
-
-/* binding */
-
-let bindPrice=0;
-
-if(orderData.bind==="เย็บมุม"){
-
-bindPrice=5*copies;
-
-}
-
-if(orderData.bind==="เข้าเล่ม"){
-
-bindPrice=20*copies;
-
-}
-
-/* delivery */
-
-let deliveryPrice=
-orderData.delivery==="จัดส่ง" ? 30 : 0;
-
-/* member discount */
-
-let discount=
-Math.floor(
-(printPrice+bindPrice)*0.05
-);
-
-let total=
-printPrice+
-bindPrice+
-deliveryPrice-
-discount;
-
-document.getElementById("printPrice")
-.innerText=printPrice+" บาท";
-
-document.getElementById("bindPrice")
-.innerText=bindPrice+" บาท";
-
-document.getElementById("deliveryPrice")
-.innerText=deliveryPrice+" บาท";
-
-document.getElementById("discount")
-.innerText="-"+discount+" บาท";
-
-document.getElementById("totalPrice")
-.innerText=total+" บาท";
-
-}
-
-
-/* =====================================
+/* =====================================================
    MAP
-===================================== */
+===================================================== */
 
 function initMap(){
 
-if(map) return;
+    if(map){
 
-/*
- ศูนย์กลางอำเภอเมืองพิษณุโลก
-*/
+        map.invalidateSize();
 
-map=L.map("map").setView(
-[16.8211,100.2659],
-13
-);
+        return;
 
-L.tileLayer(
-"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-{
-maxZoom:19,
-attribution:"© OpenStreetMap"
-}
-).addTo(map);
+    }
 
 
-/* ร้านตัวอย่าง */
-
-const shopLat=16.8211;
-const shopLng=100.2659;
-
-L.marker([shopLat,shopLng])
-.addTo(map)
-.bindPopup(
-"🐈‍⬛ แมวดำปริ้นด่วน<br>จุดรับงาน"
-)
-.openPopup();
+    map =
+        L.map("map")
+        .setView(
+            [16.8211,100.2659],
+            13
+        );
 
 
-/* click map */
-
-map.on("click",function(e){
-
-setMarker(
-e.latlng.lat,
-e.latlng.lng
-);
-
-});
-
-}
+    L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            maxZoom:19,
+            attribution:"© OpenStreetMap"
+        }
+    )
+    .addTo(map);
 
 
-function setMarker(lat,lng){
+    L.marker(
+        [16.8211,100.2659]
+    )
+    .addTo(map)
+    .bindPopup(
+        "🐈‍⬛ แมวดำปริ้นด่วน<br>จุดรับงาน"
+    );
 
-orderData.lat=lat;
-orderData.lng=lng;
 
-if(marker){
+    map.on(
+        "click",
+        function(e){
 
-marker.setLatLng([lat,lng]);
+            setMarker(
+                e.latlng.lat,
+                e.latlng.lng,
+                "เลือกจากแผนที่"
+            );
 
-}else{
-
-marker=L.marker([lat,lng])
-.addTo(map)
-.bindPopup("📍 จุดจัดส่งของคุณ")
-.openPopup();
+        }
+    );
 
 }
 
-/* ตัวอย่างเส้นทางจากร้าน */
 
-const shop=[16.8211,100.2659];
+function setMarker(
+    lat,
+    lng,
+    label = "จุดจัดส่ง"
+){
 
-if(routeLine){
+    orderData.lat = lat;
 
-map.removeLayer(routeLine);
+    orderData.lng = lng;
 
-}
 
-routeLine=L.polyline(
-[
-shop,
-[lat,lng]
-],
-{
-dashArray:"8,8"
-}
-).addTo(map);
+    if(marker){
 
-map.fitBounds(routeLine.getBounds(),{
-padding:[30,30]
-});
+        marker.setLatLng(
+            [lat,lng]
+        );
 
-document.getElementById("locationText")
-.innerText=
-"📍 พิกัดที่เลือก: "+
-lat.toFixed(6)+
-", "+
-lng.toFixed(6);
+    }
+    else{
+
+        marker =
+            L.marker(
+                [lat,lng]
+            )
+            .addTo(map);
+
+    }
+
+
+    marker
+        .bindPopup(
+            "📍 " + label
+        )
+        .openPopup();
+
+
+    const shop =
+        [16.8211,100.2659];
+
+
+    if(routeLine){
+
+        map.removeLayer(
+            routeLine
+        );
+
+    }
+
+
+    routeLine =
+        L.polyline(
+            [
+                shop,
+                [lat,lng]
+            ],
+            {
+                dashArray:"8,8"
+            }
+        )
+        .addTo(map);
+
+
+    map.fitBounds(
+        routeLine.getBounds(),
+        {
+            padding:[30,30]
+        }
+    );
+
+
+    document
+        .getElementById("locationText")
+        .textContent =
+        `📍 ${lat.toFixed(6)}, ${lng.toFixed(6)}`;
 
 }
 
 
 function clearMapMarker(){
 
-if(marker){
+    if(marker){
 
-map.removeLayer(marker);
-marker=null;
+        map.removeLayer(marker);
 
-}
+        marker = null;
 
-if(routeLine){
+    }
 
-map.removeLayer(routeLine);
-routeLine=null;
 
-}
+    if(routeLine){
 
-orderData.lat=null;
-orderData.lng=null;
+        map.removeLayer(routeLine);
 
-document.getElementById("locationText")
-.innerText=
-"กรุณาแตะบนแผนที่เพื่อเลือกตำแหน่ง";
+        routeLine = null;
+
+    }
+
+
+    orderData.lat = null;
+
+    orderData.lng = null;
+
+
+    document
+        .getElementById("locationText")
+        .textContent =
+        "กรุณาค้นหาที่อยู่หรือแตะบนแผนที่";
 
 }
 
 
 function useCurrentLocation(){
 
-if(!navigator.geolocation){
+    if(
+        !navigator.geolocation
+    ){
 
-showToast("อุปกรณ์ไม่รองรับ GPS");
+        showToast(
+            "อุปกรณ์ไม่รองรับ GPS"
+        );
 
-return;
+        return;
+
+    }
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position){
+
+            const lat =
+                position.coords.latitude;
+
+            const lng =
+                position.coords.longitude;
+
+
+            map.setView(
+                [lat,lng],
+                16
+            );
+
+
+            setMarker(
+                lat,
+                lng,
+                "ตำแหน่งปัจจุบัน"
+            );
+
+
+            showToast(
+                "📍 ใช้ตำแหน่งปัจจุบันแล้ว"
+            );
+
+        },
+
+
+        function(){
+
+            showToast(
+                "ไม่สามารถเข้าถึงตำแหน่งได้"
+            );
+
+        }
+
+    );
 
 }
 
-navigator.geolocation.getCurrentPosition(
 
-function(position){
+/* =====================================================
+   SEARCH ADDRESS
+===================================================== */
 
-const lat=
-position.coords.latitude;
+async function searchAddress(){
 
-const lng=
-position.coords.longitude;
+    const query =
+        document
+        .getElementById("addressSearch")
+        .value
+        .trim();
 
-map.setView([lat,lng],16);
 
-setMarker(lat,lng);
+    if(!query){
 
-showToast(
-"📍 ใช้ตำแหน่งปัจจุบันแล้ว"
-);
+        showToast(
+            "กรุณากรอกที่อยู่"
+        );
 
-},
+        return;
 
-function(){
+    }
 
-showToast(
-"ไม่สามารถเข้าถึงตำแหน่งได้"
-);
+
+    const resultBox =
+        document
+        .getElementById("addressResult");
+
+
+    resultBox.style.display =
+        "block";
+
+
+    resultBox.textContent =
+        "กำลังค้นหาที่อยู่...";
+
+
+    try{
+
+        const url =
+            "https://nominatim.openstreetmap.org/search" +
+            "?format=json" +
+            "&limit=5" +
+            "&countrycodes=th" +
+            "&viewbox=100.15,16.95,100.38,16.70" +
+            "&bounded=1" +
+            "&q=" +
+            encodeURIComponent(
+                query + " พิษณุโลก"
+            );
+
+
+        const response =
+            await fetch(
+                url,
+                {
+                    headers:{
+                        "Accept-Language":"th"
+                    }
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if(!data.length){
+
+            resultBox.textContent =
+                "ไม่พบที่อยู่ในพื้นที่ที่ค้นหา";
+
+            return;
+
+        }
+
+
+        const place = data[0];
+
+
+        setMarker(
+            +place.lat,
+            +place.lon,
+            "ที่อยู่ที่ค้นพบ"
+        );
+
+
+        orderData.address =
+            place.display_name;
+
+
+        resultBox.textContent =
+            "📍 " +
+            place.display_name;
+
+
+        document
+            .getElementById("locationText")
+            .textContent =
+            "เลือกตำแหน่งจากที่อยู่แล้ว สามารถแตะแผนที่เพื่อปรับได้";
+
+    }
+    catch(error){
+
+        resultBox.textContent =
+            "ค้นหาไม่สำเร็จ กรุณาเลือกตำแหน่งจากแผนที่";
+
+    }
 
 }
 
-);
 
-}
-
-
-/* =====================================
-   ORDER
-===================================== */
+/* =====================================================
+   CONFIRM ORDER
+===================================================== */
 
 function confirmOrder(){
 
-const file=
-document.getElementById("fileInput").files.length;
+    const file =
+        document
+        .getElementById("fileInput")
+        .files.length;
 
-if(!file){
 
-showToast(
-"กรุณาอัปโหลดไฟล์ก่อน"
-);
+    if(!file){
 
-return;
+        showToast(
+            "กรุณาอัปโหลดไฟล์ก่อน"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        orderData.delivery === "จัดส่ง"
+        &&
+        !orderData.lat
+    ){
+
+        showToast(
+            "กรุณาระบุตำแหน่งจัดส่ง"
+        );
+
+        return;
+
+    }
+
+
+    const price =
+        calculatePrice();
+
+
+    document
+        .getElementById("paymentAmount")
+        .textContent =
+        price.total + " บาท";
+
+
+    document
+        .getElementById("paymentModal")
+        .classList.add("show");
 
 }
 
-if(
-orderData.delivery==="จัดส่ง"
-&&
-!orderData.lat
-){
 
-showToast(
-"กรุณาระบุตำแหน่งจัดส่งบนแผนที่"
-);
-
-return;
-
-}
-
-const total=
-document.getElementById("totalPrice")
-.innerText;
-
-document.getElementById("paymentAmount")
-innerText=total;
-
-document.getElementById("paymentAmount")
-.innerText=total;
-
-document.getElementById("paymentModal")
-.classList.add("show");
-
-}
-
-
-/* =====================================
+/* =====================================================
    PAYMENT
-===================================== */
+===================================================== */
 
 function closePayment(){
 
-document.getElementById("paymentModal")
-.classList.remove("show");
+    document
+        .getElementById("paymentModal")
+        .classList.remove("show");
 
 }
 
 
-function selectPayment(el){
+function selectPayment(element){
 
-el.parentElement
-.querySelectorAll(".option")
-.forEach(x=>x.classList.remove("selected"));
+    element
+        .parentElement
+        .querySelectorAll(".option")
+        .forEach(
+            x =>
+                x.classList.remove("selected")
+        );
 
-el.classList.add("selected");
+
+    element.classList.add("selected");
 
 }
 
+
+/* =====================================================
+   PAYMENT SUCCESS
+===================================================== */
 
 function paymentSuccess(){
 
-closePayment();
+    const price =
+        calculatePrice();
 
-const id=
-"MD"+
-Date.now().toString().slice(-8);
 
-document.getElementById("orderID")
-.innerText=id;
+    const id =
+        "MD" +
+        Date.now()
+            .toString()
+            .slice(-8);
 
-document.getElementById("trackingMessage")
-.innerText=
-"🖨️ ร้านได้รับคำสั่งซื้อแล้ว กำลังเตรียมงานของคุณ";
 
-document.getElementById("adminOrders")
-innerText="1";
+    const now =
+        new Date();
 
-orderData.points+=20;
 
-document.getElementById("homePoints")
-innerText=orderData.points;
+    const isFree =
+        state.printCount % 10 === 9;
 
-document.getElementById("memberPoints")
-innerText=orderData.points;
 
-showToast(
-"✓ ชำระเงินสำเร็จ เลขออเดอร์ "+id
-);
+    const newCount =
+        state.printCount + 1;
 
-setTimeout(function(){
 
-showScreen("tracking");
+    const order = {
 
-},800);
+        id:id,
+
+        date:now.toISOString(),
+
+        file:
+            document
+            .getElementById("fileInput")
+            .files[0]
+            .name,
+
+        total:price.total,
+
+        status:"รับออเดอร์",
+
+        color:orderData.color,
+
+        paper:orderData.paper,
+
+        side:orderData.side,
+
+        bind:orderData.bind,
+
+        pages:orderData.pages,
+
+        copies:orderData.copies,
+
+        delivery:orderData.delivery,
+
+        address:
+            document
+            .getElementById("addressDetail")
+            .value ||
+            orderData.address,
+
+        lat:orderData.lat,
+
+        lng:orderData.lng,
+
+        free:isFree
+
+    };
+
+
+    state.orders.unshift(
+        order
+    );
+
+
+    state.currentOrderId =
+        id;
+
+
+    state.printCount =
+        newCount;
+
+
+    addNotification(
+        `ออเดอร์ ${id} ชำระเงินแล้ว ร้านได้รับคำสั่งซื้อ`,
+        true
+    );
+
+
+    if(newCount === 10){
+
+        state.rewards.push({
+
+            date:
+                now.toISOString(),
+
+            text:
+                "ได้รับสิทธิ์พิมพ์ฟรี 1 ครั้ง"
+
+        });
+
+
+        addNotification(
+            "🎉 ครบ 10 ครั้ง! ได้รับสิทธิ์พิมพ์ฟรี 1 ครั้ง",
+            true
+        );
+
+    }
+
+
+    if(newCount === 20){
+
+        state.rewards.push({
+
+            date:
+                now.toISOString(),
+
+            text:
+                "ได้รับของรางวัลจากร้าน"
+
+        });
+
+
+        addNotification(
+            "🎁 ครบ 20 ครั้ง! ได้รับของรางวัลจากร้าน",
+            true
+        );
+
+    }
+
+
+    closePayment();
+
+
+    save();
+
+
+    document
+        .getElementById("orderID")
+        .textContent =
+        id;
+
+
+    showToast(
+        "✓ ชำระเงินสำเร็จ " + id
+    );
+
+
+    setTimeout(
+        () =>
+            showScreen("tracking"),
+        500
+    );
 
 }
 
 
-/* =====================================
+/* =====================================================
+   NOTIFICATION
+===================================================== */
+
+function addNotification(
+    text,
+    isNew = false
+){
+
+    state.notifications.unshift({
+
+        id:
+            Date.now() +
+            Math.random(),
+
+        text:text,
+
+        date:
+            new Date()
+            .toLocaleString(
+                "th-TH"
+            ),
+
+        new:isNew
+
+    });
+
+
+    state.notifications =
+        state.notifications.slice(
+            0,
+            30
+        );
+
+}
+
+
+/* =====================================================
+   CURRENT ORDER
+===================================================== */
+
+function currentOrder(){
+
+    return state.orders.find(
+        o =>
+            o.id ===
+            state.currentOrderId
+    )
+    ||
+    state.orders[0];
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+const statuses = [
+
+    "รับออเดอร์",
+
+    "กำลังพิมพ์",
+
+    "เตรียมจัดส่ง",
+
+    "จัดส่งแล้ว"
+
+];
+
+
+/* =====================================================
+   TRACKING
+===================================================== */
+
+function renderTracking(){
+
+    const order =
+        currentOrder();
+
+
+    const box =
+        document
+        .getElementById(
+            "trackingStatuses"
+        );
+
+
+    if(!order){
+
+        box.innerHTML = "";
+
+        document
+            .getElementById("orderID")
+            .textContent =
+            "ยังไม่มี";
+
+
+        document
+            .getElementById("trackingMessage")
+            .textContent =
+            "ยังไม่มีคำสั่งซื้อ";
+
+
+        return;
+
+    }
+
+
+    document
+        .getElementById("orderID")
+        .textContent =
+        order.id;
+
+
+    const index =
+        statuses.indexOf(
+            order.status
+        );
+
+
+    box.innerHTML =
+        statuses
+        .map(
+            (status,i) => `
+
+            <div class="status
+                ${i <= index ? "active" : ""}
+                ${i < index ? "done" : ""}
+            ">
+
+                <div class="status-circle">
+
+                    ${
+                        i <= index
+                        ?
+                        "✓"
+                        :
+                        ["🧾","🖨️","📦","🚚"][i]
+                    }
+
+                </div>
+
+                <span>
+                    ${status}
+                </span>
+
+            </div>
+
+            `
+        )
+        .join("");
+
+
+    document
+        .getElementById("trackingMessage")
+        .textContent =
+        `${order.status} • ${order.file} • ${order.total.toLocaleString()} บาท`;
+
+
+    const notifications =
+        state.notifications.slice(
+            0,
+            6
+        );
+
+
+    document
+        .getElementById(
+            "trackingNotifications"
+        )
+        .innerHTML =
+        notifications.length
+        ?
+        notifications
+            .map(
+                n => `
+
+                <div class="notification
+                    ${n.new ? "new" : ""}
+                ">
+
+                    ${n.text}
+
+                    <br>
+
+                    <small>
+                        ${n.date}
+                    </small>
+
+                </div>
+
+                `
+            )
+            .join("")
+        :
+        `
+        <div class="notification">
+            ยังไม่มีข้อมูล
+        </div>
+        `;
+
+}
+
+
+/* =====================================================
    MEMBER
-===================================== */
+===================================================== */
 
-function openMember(){
+function renderMember(){
 
-showScreen("member");
+    const current =
+        state.printCount % 10;
+
+
+    const progress =
+        current === 0 &&
+        state.printCount > 0
+        ?
+        10
+        :
+        current * 10;
+
+
+    document
+        .getElementById("homePoints")
+        .textContent =
+        state.printCount;
+
+
+    document
+        .getElementById("memberPoints")
+        .textContent =
+        state.printCount;
+
+
+    document
+        .getElementById("homeProgress")
+        .style.width =
+        progress + "%";
+
+
+    document
+        .getElementById("memberProgress")
+        .style.width =
+        progress + "%";
+
+
+    const next =
+        current === 0
+        ?
+        10
+        :
+        10 - current;
+
+
+    document
+        .getElementById("homePromoText")
+        .textContent =
+        state.printCount >= 20 &&
+        current === 0
+        ?
+        "ครบ 20 ครั้งแล้ว 🎁"
+        :
+        `อีก ${next} ครั้ง รับสิทธิ์พิมพ์ฟรี`;
+
+
+    document
+        .getElementById("memberPromoText")
+        .textContent =
+        state.printCount >= 20 &&
+        current === 0
+        ?
+        "คุณครบ 20 ครั้งและได้รับของรางวัลแล้ว"
+        :
+        `สะสม ${current}/10 ครั้ง สำหรับสิทธิ์พิมพ์ฟรีครั้งถัดไป`;
+
+
+    document
+        .getElementById("rewardText")
+        .innerHTML =
+        state.printCount >= 20
+        ?
+        `
+        🎉 มีสิทธิ์ของรางวัลจากการสะสมครบ 20 ครั้ง
+        <br>
+        ⭐ สิทธิ์พิมพ์ฟรีเมื่อครบทุก 10 ครั้ง
+        `
+        :
+        `
+        📌 พิมพ์ครบครั้งที่ 10 รับสิทธิ์พิมพ์ฟรี
+        <br>
+        📌 พิมพ์ครบครั้งที่ 20 รับของรางวัล
+        `;
+
+
+    document
+        .getElementById("rewardHistory")
+        .innerHTML =
+        state.rewards.length
+        ?
+        state.rewards
+            .map(
+                reward => `
+
+                <div class="notification">
+
+                    🎁 ${reward.text}
+
+                    <br>
+
+                    <small>
+                        ${
+                            new Date(
+                                reward.date
+                            )
+                            .toLocaleString(
+                                "th-TH"
+                            )
+                        }
+                    </small>
+
+                </div>
+
+                `
+            )
+            .join("")
+        :
+        `
+        <div class="notification">
+            ยังไม่มีการใช้สิทธิ์
+        </div>
+        `;
 
 }
 
 
-/* =====================================
-   MENU
-===================================== */
+/* =====================================================
+   ADMIN LOGIN
+===================================================== */
 
-function openMenu(){
+function openAdminLogin(){
 
-document.getElementById("menuModal")
-.classList.add("show");
-
-}
-
-function closeMenu(){
-
-document.getElementById("menuModal")
-.classList.remove("show");
+    document
+        .getElementById("loginModal")
+        .classList.add("show");
 
 }
 
 
-/* =====================================
-   ADMIN
-===================================== */
+function closeLogin(){
 
-function adminStatus(status){
-
-document.getElementById(
-"adminOrderStatus"
-).innerText=status;
-
-showToast(
-"เปลี่ยนสถานะเป็น "+status
-);
+    document
+        .getElementById("loginModal")
+        .classList.remove("show");
 
 }
 
 
-/* =====================================
+function adminLogin(){
+
+    const pin =
+        document
+        .getElementById("adminPin")
+        .value;
+
+
+    if(pin === "1234"){
+
+        sessionStorage.setItem(
+            "adminAuth",
+            "1"
+        );
+
+
+        closeLogin();
+
+
+        showScreen("admin");
+
+
+        renderAdmin();
+
+
+        showToast(
+            "เข้าสู่ระบบ Admin สำเร็จ"
+        );
+
+    }
+    else{
+
+        showToast(
+            "รหัส Admin ไม่ถูกต้อง"
+        );
+
+    }
+
+}
+
+
+function adminLogout(){
+
+    sessionStorage.removeItem(
+        "adminAuth"
+    );
+
+
+    showScreen("home");
+
+
+    showToast(
+        "ออกจากระบบ Admin แล้ว"
+    );
+
+}
+
+
+/* =====================================================
+   ADMIN TAB
+===================================================== */
+
+function adminTab(
+    tab,
+    element
+){
+
+    document
+        .querySelectorAll(
+            ".admin-tab"
+        )
+        .forEach(
+            x =>
+                x.classList.remove(
+                    "active"
+                )
+        );
+
+
+    element.classList.add(
+        "active"
+    );
+
+
+    document
+        .getElementById(
+            "adminOverview"
+        )
+        .style.display =
+        tab === "overview"
+        ?
+        "block"
+        :
+        "none";
+
+
+    document
+        .getElementById(
+            "adminOrdersPanel"
+        )
+        .style.display =
+        tab === "orders"
+        ?
+        "block"
+        :
+        "none";
+
+
+    document
+        .getElementById(
+            "adminPromoPanel"
+        )
+        .style.display =
+        tab === "promo"
+        ?
+        "block"
+        :
+        "none";
+
+
+    if(tab === "overview"){
+
+        renderCharts();
+
+    }
+
+}
+
+
+/* =====================================================
+   ADMIN DASHBOARD
+===================================================== */
+
+function renderAdmin(){
+
+    document
+        .getElementById("statOrders")
+        .textContent =
+        state.orders.length;
+
+
+    document
+        .getElementById("statSales")
+        .textContent =
+        state.orders
+            .reduce(
+                (sum,order) =>
+                    sum + order.total,
+                0
+            )
+            .toLocaleString();
+
+
+    document
+        .getElementById("statPrinting")
+        .textContent =
+        state.orders
+            .filter(
+                order =>
+                    order.status !==
+                    "จัดส่งแล้ว"
+            )
+            .length;
+
+
+    document
+        .getElementById("adminOrderList")
+        .innerHTML =
+        state.orders.length
+        ?
+        state.orders
+            .map(
+                order => `
+
+                <div class="order-row">
+
+                    <div
+                        class="order-row-top">
+
+                        <strong>
+                            #${order.id}
+                        </strong>
+
+                        <span class="badge">
+                            ${order.status}
+                        </span>
+
+                    </div>
+
+
+                    <p class="muted">
+
+                        ${order.file}
+
+                        •
+
+                        ${order.total.toLocaleString()}
+                        บาท
+
+                        •
+
+                        ${
+                            new Date(
+                                order.date
+                            )
+                            .toLocaleString(
+                                "th-TH"
+                            )
+                        }
+
+                    </p>
+
+
+                    <div
+                        class="admin-actions">
+
+                        ${
+                            statuses
+                            .map(
+                                status => `
+
+                                <button
+                                    onclick="
+                                    updateOrderStatus(
+                                        '${order.id}',
+                                        '${status}'
+                                    )
+                                    "
+                                >
+
+                                    ${status}
+
+                                </button>
+
+                                `
+                            )
+                            .join("")
+                        }
+
+                    </div>
+
+                </div>
+
+                `
+            )
+            .join("")
+        :
+        `
+        <div class="notification">
+            ยังไม่มีออเดอร์
+        </div>
+        `;
+
+
+    document
+        .getElementById(
+            "adminNotifications"
+        )
+        .innerHTML =
+        state.notifications
+            .slice(0,8)
+            .map(
+                n => `
+
+                <div class="
+                    notification
+                    ${n.new ? "new" : ""}
+                ">
+
+                    🔔 ${n.text}
+
+                    <br>
+
+                    <small>
+                        ${n.date}
+                    </small>
+
+                </div>
+
+                `
+            )
+            .join("")
+        ||
+        `
+        <div class="notification">
+            ยังไม่มีการแจ้งเตือน
+        </div>
+        `;
+
+
+    renderCharts();
+
+}
+
+
+/* =====================================================
+   UPDATE ORDER STATUS
+===================================================== */
+
+function updateOrderStatus(
+    id,
+    status
+){
+
+    const order =
+        state.orders.find(
+            x =>
+                x.id === id
+        );
+
+
+    if(!order){
+
+        return;
+
+    }
+
+
+    order.status =
+        status;
+
+
+    state.currentOrderId =
+        id;
+
+
+    addNotification(
+        `ออเดอร์ ${id} เปลี่ยนสถานะเป็น "${status}"`,
+        true
+    );
+
+
+    save();
+
+
+    showToast(
+        "อัปเดตสถานะแล้ว"
+    );
+
+
+    renderAdmin();
+
+    renderTracking();
+
+}
+
+
+/* =====================================================
+   CHARTS
+===================================================== */
+
+function renderCharts(){
+
+    const sales =
+        state.orders
+            .slice(0,10)
+            .reverse();
+
+
+    if(salesChart){
+
+        salesChart.destroy();
+
+    }
+
+
+    if(statusChart){
+
+        statusChart.destroy();
+
+    }
+
+
+    salesChart =
+        new Chart(
+            document.getElementById(
+                "salesChart"
+            ),
+            {
+
+                type:"line",
+
+                data:{
+
+                    labels:
+                        sales.map(
+                            order =>
+                                order.id.slice(-4)
+                        ),
+
+                    datasets:[{
+
+                        label:
+                            "ยอดขาย",
+
+                        data:
+                            sales.map(
+                                order =>
+                                    order.total
+                            ),
+
+                        tension:.3
+
+                    }]
+
+                },
+
+                options:{
+
+                    responsive:true,
+
+                    maintainAspectRatio:false
+
+                }
+
+            }
+        );
+
+
+    const counts =
+        statuses.map(
+            status =>
+                state.orders.filter(
+                    order =>
+                        order.status ===
+                        status
+                ).length
+        );
+
+
+    statusChart =
+        new Chart(
+            document.getElementById(
+                "statusChart"
+            ),
+            {
+
+                type:"bar",
+
+                data:{
+
+                    labels:statuses,
+
+                    datasets:[{
+
+                        label:
+                            "จำนวนออเดอร์",
+
+                        data:counts
+
+                    }]
+
+                },
+
+                options:{
+
+                    responsive:true,
+
+                    maintainAspectRatio:false
+
+                }
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   PROMOTION
+===================================================== */
+
+function createPromo(){
+
+    const message =
+        document
+        .getElementById(
+            "promoAnnouncement"
+        )
+        .value
+        .trim();
+
+
+    if(!message){
+
+        showToast(
+            "กรุณากรอกข้อความ"
+        );
+
+        return;
+
+    }
+
+
+    state.promoAnnouncements
+        .unshift(
+            message
+        );
+
+
+    addNotification(
+        "📢 โปรโมชั่นใหม่: " +
+        message,
+        true
+    );
+
+
+    document
+        .getElementById(
+            "promoAnnouncement"
+        )
+        .value = "";
+
+
+    save();
+
+
+    showToast(
+        "เผยแพร่โปรโมชั่นแล้ว"
+    );
+
+}
+
+
+/* =====================================================
    REVIEW
-===================================== */
+===================================================== */
 
 function rate(number){
 
-currentRating=number;
+    currentRating =
+        number;
 
-const stars=
-document.querySelectorAll(
-"#tracking .card:nth-child(2) span"
-);
 
-stars.forEach(function(star,index){
+    document
+        .querySelectorAll(
+            "#ratingStars span"
+        )
+        .forEach(
+            (star,index) => {
 
-star.innerText=
-index<number ? "★" : "☆";
+                star.textContent =
+                    index < number
+                    ?
+                    "★"
+                    :
+                    "☆";
 
-});
+            }
+        );
 
 }
 
 
 function submitReview(){
 
-if(currentRating===0){
+    if(
+        currentRating === 0
+    ){
 
-showToast(
-"กรุณาให้คะแนนก่อน"
-);
+        showToast(
+            "กรุณาให้คะแนนก่อน"
+        );
 
-return;
+        return;
 
-}
-
-showToast(
-"⭐ ขอบคุณสำหรับรีวิว"
-);
-
-document.getElementById(
-"reviewText"
-).value="";
-
-}
+    }
 
 
-/* =====================================
-   TOAST
-===================================== */
+    showToast(
+        "⭐ ขอบคุณสำหรับรีวิว"
+    );
 
-function showToast(message){
 
-const toast=
-document.getElementById("toast");
+    document
+        .getElementById(
+            "reviewText"
+        )
+        .value = "";
 
-toast.innerText=message;
 
-toast.classList.add("show");
-
-setTimeout(function(){
-
-toast.classList.remove("show");
-
-},2500);
+    currentRating = 0;
 
 }
 
 
-/* =====================================
+/* =====================================================
+   RENDER ALL
+===================================================== */
+
+function renderAll(){
+
+    renderMember();
+
+    renderTracking();
+
+    if(
+        sessionStorage.getItem(
+            "adminAuth"
+        )
+    ){
+
+        renderAdmin();
+
+    }
+
+
+    document
+        .getElementById(
+            "homeNotifications"
+        )
+        .innerHTML =
+        state.notifications
+            .slice(0,3)
+            .map(
+                n => `
+
+                <div class="
+                    notification
+                    ${n.new ? "new" : ""}
+                ">
+
+                    ${n.text}
+
+                    <br>
+
+                    <small>
+                        ${n.date}
+                    </small>
+
+                </div>
+
+                `
+            )
+            .join("")
+        ||
+        `
+        <div class="notification">
+            ยังไม่มีการแจ้งเตือนใหม่
+        </div>
+        `;
+
+}
+
+
+/* =====================================================
    INITIAL
-===================================== */
+===================================================== */
 
-calculatePrice();
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        calculatePrice();
+
+        renderAll();
+
+    }
+);
 
 </script>
 
